@@ -1,0 +1,156 @@
+.nav {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  justify-self: center;
+  height: 100%;
+  width: 25rem;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: var(--foreground);
+  /* overflow-x: hidden; */
+}
+
+.sidenav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  width: 25rem;
+}
+
+.logo {
+  width: 22rem;
+  height: 13rem;
+  background-color: var(--background);
+  border-radius: 10px;
+}
+
+.sidenav a {
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  width: 80%;
+  height: 5rem;
+  padding-left: 15px;
+  margin: 5px 0;
+  background-color: var(--background-component);
+  border-radius: 10px;
+  color: var(--font-color-tertiary);
+}
+
+.link:hover {
+  color: var(--active-secondary);
+  background-color: var(--active-tertiary);
+}
+
+.linkActive {
+  color: var(--active-secondary);
+  background-color: var(--active-tertiary);
+}
+
+.signOutContainer {
+  display: contents;
+  width: 20rem;
+  height: 10rem;
+}
+
+.navTitle {
+  margin-left: 1rem;
+}
+
+.signOut {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: var(--background-component);
+  width: 22rem;
+  height: 5rem;
+  border-radius: 10px;
+  border: none;
+  color: var(--font-color-tertiary);
+  cursor: pointer;
+  padding-left: 1.5rem;
+}
+
+.signOut:hover {
+  background-color: var(--active-tertiary);
+  color: var(--active-secondary);
+}
+
+.signOut p {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-left: 1rem;
+}
+
+.blankSpace {
+  width: 22rem;
+  height: 48%;
+  background-color: var(--background-component);
+  border-radius: 10px;
+}
+
+.icon{
+  width: 3rem;
+}
+
+@media (max-width: 700px) {
+  .nav {
+    display: grid;
+    justify-items: center;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+    position: relative;
+    width: 100%;
+    height: 28rem;
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+  
+  .blankSpace {
+    display: none;
+  }
+
+  .sidenav{
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    grid-area: 2/ 1/ 3/ 4;
+  }
+
+  .sidenav a {
+    padding: 0;
+    margin: 0 1.5rem;
+    justify-content: center;
+    height: 6rem;
+  }
+
+  .signOut {
+    width: 7rem;
+    height: 6.1rem;;
+    grid-area: 2/ 4/3 /5;
+  }
+
+  .sidenav p, .signOut p {
+    display: none;
+  }
+
+  .logo {
+    height: 10rem;
+    width: 100%;
+    grid-area: 1/1 /2 /5;
+  }
+
+  .icon{
+    width: 3rem;
+  }
+}
