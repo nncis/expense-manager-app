@@ -1,29 +1,29 @@
-import { getToken } from "next-auth/jwt";
-import { NextResponse, type NextRequest } from "next/server";
+'use server'
+import { NextResponse, type NextRequest } from 'next/server';
+import { getToken } from 'next-auth/jwt';
+
 
 export async function middleware(request: NextRequest) {
-  // Obtén el token de sesión
-  const token = await getToken({ req: request });
+  
+  // Obtén las cookies del request
+  const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET });
 
   // Define las rutas protegidas
-  const protectedRoutes = ["/dashboard"]; // Rutas que requieren autenticación
-
-  // Verifica si la ruta actual está protegida
+  const protectedRoutes = ['/dashboard'];
   const isProtectedRoute = protectedRoutes.some((route) =>
     request.nextUrl.pathname.startsWith(route),
   );
 
-  // Si el usuario no está autenticado y está intentando acceder a una ruta protegida, redirige al login
-  if (!token && isProtectedRoute) {
-    const loginUrl = new URL("/auth/login", request.url);
-    return NextResponse.redirect(loginUrl);
+  // Si la ruta es protegida y el usuario no está autenticado, redirige al login
+  if (isProtectedRoute && !token) {
+    console.log('Usuario no autenticado, redirigiendo al login...');
+    return NextResponse.redirect(new URL('/login', request.url));
   }
 
-  // Permite el acceso si el usuario está autenticado o si la ruta no está protegida
+  // Permitir el acceso si el usuario está autenticado o la ruta no es protegida
   return NextResponse.next();
 }
 
-// Configura el middleware para que se ejecute en las rutas especificadas
 export const config = {
-  matcher: ["/dashboard/:path*"], // Rutas protegidas
+  matcher: ['/dashboard/:path*'],
 };

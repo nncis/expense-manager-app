@@ -1,9 +1,13 @@
-import SignInGoogle from "@/components/SignInGoogle";
+'use client'
+import { signIn } from 'next-auth/react';
 
-export default function Login(){
+export default function LoginPage() {
+  
   return (
-    <main>
-        <SignInGoogle/>
-    </main>
-  )
+    <div>
+      <h1>Iniciar Sesión</h1>
+      <button onClick={() => signIn('google', { redirectTo: "dashboard" })}>Iniciar sesión con Google</button>
+      <button onClick={() => signIn('email')}>Iniciar sesión con Magic Link</button>
+    </div>
+  );
 }
