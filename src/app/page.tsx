@@ -1,15 +1,18 @@
 
-import styles from "./page.module.css";
+import style from "./page.module.css";
 import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className={styles.page}>
+    <main className={style.getStartedPage}>
+      <h1 className={style.getStartedTitle}>Welcome to Expense Manager</h1>
+      <p className={style.getStartedSubTitle}>See where you spend the most and save better</p>
        <Link 
         href="/login"
+        className={style.letsGoBtn}
        >
-        Login
+        GET STARTED
        </Link>
-    </div>
+    </main>
   );
 }
