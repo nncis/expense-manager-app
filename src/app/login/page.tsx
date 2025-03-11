@@ -11,7 +11,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div>
+    <>
       <h1>Iniciar Sesión</h1>
       <button onClick={() => signIn('google', { callbackUrl: "/dashboard" })}>Iniciar sesión con Google</button>
       <p>
@@ -22,6 +22,6 @@ export default function LoginPage() {
         signIn('email', {email: emailInput})
       }}
         >Iniciar sesión con Magic Link</button>
-    </div>
+    </>
   );
 }
