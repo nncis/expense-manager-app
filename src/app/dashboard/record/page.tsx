@@ -1,7 +1,9 @@
+import RecordForm from '@/ui/record/recordForm';
+
 export default function Record(){
   return (
     <main>
-      RECORD
+      <RecordForm />
     </main>
   )
 }

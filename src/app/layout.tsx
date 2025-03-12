@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { inter } from '@/ui/fonts/fonts';
 import "./globals.css";
-import Navbar from "@/ui/Navbar";
-import style from '@/styles/dashboard.module.css';
 
 export const metadata: Metadata = {
   title: "Expense Manager",
@@ -17,7 +15,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
-        <Navbar/>
         {children}
       </body>
     </html>

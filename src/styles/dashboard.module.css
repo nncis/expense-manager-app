@@ -7,3 +7,17 @@
   height: 100%;
   padding-left: 25rem;
 }
+
+.submitBtn {
+  color: var(--font-color-primary);
+  background-color: var(--background);
+  width: 10rem;
+  height: 4rem;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.submitBtn:hover {
+  background-color: var(--active-tertiary);
+}

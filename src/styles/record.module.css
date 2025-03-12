@@ -1,0 +1,94 @@
+.recordPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  width: 95%;
+  padding: 15rem 0;
+}
+
+.recordForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: var(--background-component);
+  height: 30rem;
+  width: 100%;
+  border-radius: 5px;
+  padding: 1rem;
+}
+
+.recordForm label{
+  font-size: 2rem;
+  margin: 1rem 0;
+  color: var(--font-color-tertiary);
+  width: 20rem;
+}
+
+.recordFormRow {
+  display: flex;
+  flex-direction: column;
+  padding: 0 2rem;
+  margin: 1rem 0;
+  
+}
+
+.recordForm input {
+  width: 100%;
+  height: 4rem;
+  border-radius: 5px;
+  font-size: 1.8rem;
+  padding-left: 0.5rem;
+  border: 1px solid var(--border-color);
+}
+
+.recordForm select {
+  width: 101%;
+  height: 4.5rem;
+  border-radius: 5px;
+  font-size: 1.8rem;
+  padding-left: 0.5rem;
+  border: 1px solid var(--border-color);
+}
+
+.buttonsContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  width: 15rem;
+  height: 2rem;
+  margin: 1rem 0;
+}
+
+.btn {
+  height: 3.5rem;
+  width: 10rem;
+  background-color: var(--button-primary);
+  border-radius: 5px;
+  cursor: pointer;
+  color: var( --font-color-primary);
+  border: none;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.btn:hover {
+  background-color: var(--active-secondary);
+}
+
+@media (max-width: 700px) {
+  .recordPage {
+    width: 100%;
+    padding: 0;
+  }
+
+  .btn {
+    height: 5rem;
+    width: 10rem;
+  }
+
+  .recordForm {
+    padding: 0;
+  }
+}
