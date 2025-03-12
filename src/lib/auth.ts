@@ -2,10 +2,8 @@ import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import EmailProvider from 'next-auth/providers/email';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import { PrismaClient } from '@prisma/client';
 import { NextAuthOptions } from "next-auth";
-
-const prisma = new PrismaClient();
+import { prisma } from "@/lib/prisma"; // Usa el singleton
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
