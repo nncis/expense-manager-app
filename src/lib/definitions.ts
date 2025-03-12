@@ -23,3 +23,11 @@ export type State = {
 export const categories: string[] = [
   "Greengrocery", "Bakery", "Meat", "Transportation", "Barber Shop", "Clothing Store", "Services", "Supermarket", "Vacations", "Forniture" ,"Electronic", "Others"
 ].sort();
+
+export type Expense = {
+  id: string,
+  category: string,
+  amount: number,
+  date: string,
+  userId: string
+};
