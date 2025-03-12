@@ -41,7 +41,7 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async redirect({ url, baseUrl }) {
-      return `${baseUrl}/dashboard`;
+      return `${baseUrl}/dashboard/record`;
     },
   }
 };
