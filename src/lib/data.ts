@@ -2,7 +2,7 @@
 
 import { sql } from '@vercel/postgres';
 import { getServerSession } from "next-auth/next";
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/lib/auth';
 import { Expense } from './definitions';
 
 const ITEMS_PER_PAGE = 6;

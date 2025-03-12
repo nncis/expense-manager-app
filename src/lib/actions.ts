@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 import { getServerSession } from "next-auth/next";
 import { createExpenseSchema, State } from '@/lib/definitions';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/lib/auth';
 
 const CreateExpense = createExpenseSchema.omit({ id: true, date: true });
 
