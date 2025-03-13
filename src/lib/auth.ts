@@ -41,6 +41,11 @@ export const authOptions: NextAuthOptions = {
     },
   },
   callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+      console.log('Usuario intentando iniciar sesión:', user);
+      return true;
+    },
+
     async redirect({ url, baseUrl }) {
       return `${baseUrl}/dashboard/record`;
     },
@@ -48,6 +53,14 @@ export const authOptions: NextAuthOptions = {
     async session({ session, token }) {
       session.user.id = token.sub; // Añade el ID del usuario a la sesión
       return session;
+    },
+
+    async jwt({ token, user, account, profile, isNewUser }) {
+      console.log('Token JWT:', token);
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
     },
   }
 };
