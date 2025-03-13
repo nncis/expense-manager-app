@@ -44,6 +44,11 @@ export const authOptions: NextAuthOptions = {
     async redirect({ url, baseUrl }) {
       return `${baseUrl}/dashboard/record`;
     },
+
+    async session({ session, token }) {
+      session.user.id = token.sub; // Añade el ID del usuario a la sesión
+      return session;
+    },
   }
 };
 
