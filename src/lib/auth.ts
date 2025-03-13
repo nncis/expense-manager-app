@@ -36,7 +36,7 @@ export const authOptions: NextAuthOptions = {
         sameSite: 'lax',
         path: '/',
         secure: process.env.NODE_ENV === 'production', // Usa 'secure' solo en producción
-        domain: '.vercel.app',
+        domain: 'https://expense-manager-app-topaz.vercel.app/login',
       },
     },
   },
