@@ -12,7 +12,7 @@ console.log('Encabezado Authorization:', authHeader);
   const token = await getToken({
     req: request,
     secret: process.env.NEXTAUTH_SECRET,
-    raw: true, // Devuelve el token sin decodificar
+    secureCookie: process.env.NODE_ENV === 'production',
   });
   
   console.log('Token leído manualmente:', token);
