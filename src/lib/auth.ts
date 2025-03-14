@@ -36,25 +36,26 @@ export const authOptions: NextAuthOptions = {
         sameSite: 'lax',
         path: '/',
         secure: process.env.NODE_ENV === 'production', // Usa 'secure' solo en producción
-        domain: '.expense-manager-app-topaz.vercel.app'
+        domain: process.env.NODE_ENV === 'production' ? '.vercel.app' : 'localhost',
       },
     },
   },
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
+      console.log('Usuario intentando iniciar sesión:', user);
       return true;
     },
-
     async redirect({ url, baseUrl }) {
-      return `${baseUrl}/dashboard/record`;
+      console.log('Redirigiendo a:', `${baseUrl}/dashboard`);
+      return `${baseUrl}/dashboard`;
     },
-
     async session({ session, token }) {
-      session.user.id = token.sub; // Añade el ID del usuario a la sesión
+      console.log('Sesión creada:', session);
+      session.user.id = token.sub;
       return session;
     },
-
     async jwt({ token, user, account, profile, isNewUser }) {
+      console.log('Token JWT:', token);
       if (user) {
         token.id = user.id;
       }
