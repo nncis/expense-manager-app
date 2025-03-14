@@ -5,7 +5,16 @@ import { getToken } from 'next-auth/jwt';
 export async function middleware(request: NextRequest) {
   console.log('Cookies recibidas:', request.cookies.getAll());
   // Obtén las cookies del request
-  const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET });
+  // const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET });
+
+  const token = await getToken({
+    req: request,
+    secret: process.env.NEXTAUTH_SECRET,
+    raw: true, // Devuelve el token sin decodificar
+  });
+  
+  console.log('Token leído manualmente:', token);
+  
   console.log('Token obtenido:', token);
   // Define las rutas protegidas
   const protectedRoutes = ['/dashboard'];
