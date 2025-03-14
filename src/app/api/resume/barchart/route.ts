@@ -1,8 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getAnnualExpenses } from '@/lib/data'
 
 export async function GET(req: NextRequest) {
+  const { searchParams } = new URL(req.url);
+  const year = searchParams.get("year");
 
-  const pinga = [{pinga: 123},{pinga: 1111}]
+  if (!year) {
+    return NextResponse.json({ error: "Year required" }, { status: 400 });
+  }
 
-  return NextResponse.json(pinga);
+  const data = await getAnnualExpenses(year);
+  return NextResponse.json(data);
 };

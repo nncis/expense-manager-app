@@ -154,6 +154,7 @@ export async function getWeekExpenses(): Promise<ExpenseByDate[]> {
 };
 
 export async function getMonthExpenses(): Promise<ExpenseByDate[]> {
+ 
   const session = await getServerSession(authOptions);
   const user = session?.user;
 
@@ -203,5 +204,80 @@ export async function getMonthExpenses(): Promise<ExpenseByDate[]> {
   } catch (dbError) {
     console.error('Database Error:', dbError);
     throw new Error('Failed to fetch week expenses');
+  }
+};
+
+export async function getYears(){
+  
+  const session = await getServerSession(authOptions);
+  const user = session?.user;
+
+  if (!user) {
+    console.error('Authentication Error: User is not authenticated');
+    throw new Error('User is not authenticated');
+  }
+
+  try {
+    const data = await sql `
+      SELECT DISTINCT EXTRACT(YEAR FROM expenses.date) AS year
+      FROM "User"
+      INNER JOIN expenses ON "User".id = expenses.user_id
+      WHERE "User".email = ${user.email}
+      ORDER BY year;
+    `
+    return data.rows
+    
+  } catch(dbError){
+    console.error('Database Error:', dbError);
+    throw new Error('Failed to fetch expenses years');
+  }
+};
+
+export async function getAnnualExpenses(year: string): Promise<ExpenseTotalAmountPerMonth[]> {
+ 
+  const session = await getServerSession(authOptions);
+  const user = session?.user;
+
+  if (!user) {
+    console.error('Authentication Error: User is not authenticated');
+    throw new Error('User is not authenticated');
+  }
+
+  try {
+    const data = await sql<ExpenseTotalAmountPerMonth>`
+      SELECT 
+        TO_CHAR(expenses.date, 'Mon') AS month, 
+        SUM(expenses.amount) AS total
+      FROM "User"
+      INNER JOIN expenses ON "User".id = expenses.user_id
+      WHERE 
+        "User".email = ${user.email} 
+        AND EXTRACT(YEAR FROM expenses.date) = ${year}
+      GROUP BY month, EXTRACT(MONTH FROM expenses.date)
+      ORDER BY EXTRACT(MONTH FROM expenses.date);
+    `
+
+    if (!data.rows.length) {
+      console.warn('No expenses found for the current week');
+      return [];
+    }
+
+    const convertCentsToDollars = (amountInCents: number) => amountInCents / 100;
+    
+    try {
+      const annualExpenses = data.rows.map((expense) => ({
+        ...expense,
+        total: convertCentsToDollars(expense.total),
+      }));
+  
+      return annualExpenses;
+    } catch (mappingError) {
+      console.error('Error while mapping data:', mappingError);
+      throw new Error('Failed to process data');
+    };
+
+  } catch(dbError){
+    console.error('Database Error:', dbError);
+    throw new Error('Failed to fetch expenses years');
   }
 };

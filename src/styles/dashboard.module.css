@@ -26,5 +26,6 @@
   .dashboardContainer{
     padding-left: 0;
     justify-content: flex-start;
+    height: auto;
   }
 }

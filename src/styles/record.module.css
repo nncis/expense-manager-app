@@ -3,6 +3,12 @@
   justify-content: center;
 }
 
+@media (max-width: 700px){
+  .recordMainPage {
+    height: 80vh;
+  }
+}
+
 .recordPage {
   display: flex;
   flex-direction: column;
