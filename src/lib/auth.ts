@@ -36,7 +36,7 @@ export const authOptions: NextAuthOptions = {
         sameSite: 'lax',
         path: '/',
         secure: process.env.NODE_ENV === 'production', // Usa 'secure' solo en producción
-        domain: process.env.NODE_ENV === 'production' ? '.vercel.app' : 'localhost',
+        domain: undefined,
       },
     },
   },
