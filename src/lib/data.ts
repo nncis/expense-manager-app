@@ -3,7 +3,7 @@
 import { sql } from '@vercel/postgres';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from '@/lib/auth';
-import { Expense } from './definitions';
+import { Expense, ExpenseAmountByDate, ExpenseTotalAmountPerMonth, ExpenseByDate, MonthlyTotal } from './definitions';
 
 const ITEMS_PER_PAGE = 6;
 
@@ -92,5 +92,116 @@ export async function fetchExpenseById(id: string) {
 
   } catch (error) {
     console.error('Database Error:', error);
+  }
+};
+
+export async function getWeekExpenses(): Promise<ExpenseByDate[]> {
+  
+  const session = await getServerSession(authOptions);
+  const user = session?.user;
+
+  if (!user) {
+    console.error('Authentication Error: User is not authenticated');
+    throw new Error('User is not authenticated');
+  }
+
+  try {
+    const data = await sql<ExpenseByDate>`
+      WITH last_date AS (
+        SELECT 
+          MAX(expenses.date) AS max_date,
+          MAX(expenses.date) - EXTRACT(DOW FROM MAX(expenses.date))::INT AS last_sunday
+        FROM expenses
+      )
+      SELECT 
+        expenses.category,
+        expenses.amount,
+        expenses.date
+      FROM "User"
+      INNER JOIN expenses
+      ON "User".id = expenses.user_id 
+      WHERE 
+       "User".email = ${user.email} AND 
+        expenses.date BETWEEN (
+          SELECT last_sunday FROM last_date
+        ) AND (
+          SELECT max_date FROM last_date
+        );
+    `;
+
+    if (!data.rows.length) {
+      console.warn('No expenses found for the current week');
+      return [];
+    }
+
+    const convertCentsToDollars = (amountInCents: number) => amountInCents / 100;
+
+    try {
+      const weekExpenses = data.rows.map((expense) => ({
+        ...expense,
+        amount: convertCentsToDollars(expense.amount),
+      }));
+  
+      return weekExpenses;
+    } catch (mappingError) {
+      console.error('Error while mapping data:', mappingError);
+      throw new Error('Failed to process data');
+    };
+  } catch (dbError) {
+    console.error('Database Error:', dbError);
+    throw new Error('Failed to fetch week expenses');
+  }
+};
+
+export async function getMonthExpenses(): Promise<ExpenseByDate[]> {
+  const session = await getServerSession(authOptions);
+  const user = session?.user;
+
+  if (!user) {
+    console.error('Authentication Error: User is not authenticated');
+    throw new Error('User is not authenticated');
+  }
+
+  try {
+    const data = await sql<ExpenseByDate>`
+      WITH last_date AS (
+        SELECT 
+        MAX(expenses.date) AS max_date,
+        DATE_TRUNC('month', MAX(expenses.date)) AS first_day_of_month
+        FROM expenses
+      )
+      SELECT 
+        expenses.category,
+        expenses.amount,
+        expenses.date
+      FROM "User"
+      INNER JOIN expenses
+      ON "User".id = expenses.user_id
+      WHERE 
+        "User".email = ${user.email} AND 
+        expenses.date BETWEEN (
+      SELECT first_day_of_month FROM last_date
+      ) AND (
+      SELECT max_date FROM last_date
+      );
+    `
+
+    const convertCentsToDollars = (amountInCents: number) => amountInCents / 100;
+
+    try {
+      const weekExpenses = data.rows.map((expense) => ({
+        ...expense,
+        amount: convertCentsToDollars(expense.amount),
+      }));
+  
+      return weekExpenses;
+    } catch (mappingError) {
+      console.error('Error while mapping data:', mappingError);
+      throw new Error('Failed to process data');
+    };
+
+  } catch (dbError) {
+    console.error('Database Error:', dbError);
+    throw new Error('Failed to fetch week expenses');
   }
 };

@@ -1,0 +1,154 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 100%;
+}
+/* BAR CHART */
+.expenseBarChart {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  background-color: var(--background-component);
+  border-radius: 10px;
+  width: 40rem;
+  height: 30rem;
+  margin: 1rem 0;
+}
+
+.SVGbarChartContainer {
+  width: 100%; 
+  height: 100%;
+  background-color: var(--foreground);
+  box-sizing: border-box;
+}
+
+.SVGbarChart {
+  width: 100%; 
+  height: 100%; 
+}
+
+.selectYear {
+  border: none;
+  background-color: var(--background-component);
+}
+
+@media (max-width: 700px) {
+  .expenseBarChart {
+    width: 95%;
+    height: 35rem;
+  }
+}
+
+/* PIE CHART */
+.expensePieChart{
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  background-color: var(--background-component);
+  border-radius: 10px;
+  width: 40rem;
+  height: 30rem;
+  margin: 1rem 0;
+}
+
+.SVGpieGraphContainer {
+  width: 100%; 
+  height: 100%;
+  background-color: var(--foreground);
+  box-sizing: border-box;
+}
+
+.SVGpieChart {
+  width: 100%; 
+  height: 100%; 
+}
+
+.selectWeekMonth {
+  background-color: var(--background-component);
+  border: none;
+}
+
+@media (max-width: 700px) {
+  .expensePieChart {
+    width: 95%;
+    height: 35rem;
+  }
+}
+
+.selectChart {
+  display: flex;
+  justify-content: flex-start;
+  padding-top: 1rem;
+  width: 100%;
+  height: 4rem;
+  background-color: var(--background-component);
+}
+
+.selectChart select {
+  width: 10rem;
+  padding-top: 5px;
+  outline: none; 
+  color: var(--font-color-4);
+  font-size: 1.6rem;
+}
+
+.calendarIcon {
+  width: 2.8rem;
+  color: var(--font-color-4);
+  margin-right: 5px;
+}
+
+
+.totalAmountBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 10rem;
+  width: 15rem;
+  padding: 1rem;
+  background-color: var(--background-component);
+  border-radius: 10px;
+}
+
+.totalAmountBox h4 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30%;
+  width: 100%;
+  font-size: 2rem;
+}
+
+.totalAmountBox p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--foreground);
+  height: 70%;
+  width: 100%;
+  font-size: 3rem;
+  border-radius: 10px;
+}
+
+
+@media (max-width: 700px) {
+  .dashboard {
+    padding: 0 2rem;
+    box-sizing: border-box;
+  }
+
+  .totalAmountBox, .totalAmountBox p, .totalAmountBox h4 {
+    width: 100%;
+  }
+
+  .selectChart select{
+    width: 12rem;
+  }
+  
+} 
+

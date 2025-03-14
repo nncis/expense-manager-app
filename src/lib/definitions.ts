@@ -31,3 +31,24 @@ export type Expense = {
   date: string,
   userId: string
 };
+
+export type ExpenseAmountByDate = {
+  category: string;
+  amount: number;
+};
+
+export type ExpenseTotalAmountPerMonth = {
+  month: string;
+  total: number;
+};
+
+export type ExpenseByDate = {
+  category: string;
+  amount: number;
+  date: Date;
+};
+
+export type MonthlyTotal = {
+  month: string;
+  total: number;
+};
