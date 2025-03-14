@@ -43,20 +43,16 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
-      console.log('Usuario intentando iniciar sesión:', user);
       return true;
     },
     async redirect({ url, baseUrl }) {
-      console.log('Redirigiendo a:', `${baseUrl}/dashboard`);
-      return `${baseUrl}/dashboard`;
+      return `${baseUrl}/dashboard/record`;
     },
     async session({ session, token }) {
-      console.log('Sesión creada:', session);
       session.user.id = token.sub;
       return session;
     },
     async jwt({ token, user, account, profile, isNewUser }) {
-      console.log('Token JWT:', token);
       if (user) {
         token.id = user.id;
       }
