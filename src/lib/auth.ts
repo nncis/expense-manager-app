@@ -36,13 +36,12 @@ export const authOptions: NextAuthOptions = {
         sameSite: 'lax',
         path: '/',
         secure: process.env.NODE_ENV === 'production', // Usa 'secure' solo en producción
-        domain: '.vercel.app'
+        domain: '.expense-manager-app-topaz.vercel.app'
       },
     },
   },
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
-      console.log('Usuario intentando iniciar sesión:', user);
       return true;
     },
 
@@ -56,7 +55,6 @@ export const authOptions: NextAuthOptions = {
     },
 
     async jwt({ token, user, account, profile, isNewUser }) {
-      console.log('Token JWT:', token);
       if (user) {
         token.id = user.id;
       }
