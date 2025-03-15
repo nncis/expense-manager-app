@@ -40,7 +40,7 @@
 
   .expensePage {
     justify-content: flex-start;
-    height: 80vh;
+
   }
   .expenseTable{
     display: none;
