@@ -1,5 +1,46 @@
 :root {
-  --background: #5c4ccc;
+  --background: #F3F3F3;
+  --background-2: #FAFAFA;
+  --background-3: #1E1E1E;
+
+  --stroke: #D9D9D9;
+  --stroke-2: #000000;
+
+  --font-color: #FFFFFF;
+  --font-color-2: #5B5B5B;
+  --font-color-3: #000000;
+
+  --background-button: #FFFFFF;
+  --background-button-2: #E4E4E4;
+  --background-button-3: #3D84F6;
+  --background-button-4: #F6BA3D;
+  --background-button-5: #4EC0EA;
+
+  --active-button: #FFFFFF;
+  --active-button-2: #F6BA3D;
+
+  --row-background: #FFFFFF;
+  --row-background-2: #FAFAFA;
+
+  --color-1: #8AB799;
+  --color-2: #4EC0EA;
+  --color-3: #F6BA3D;
+  --color-4: #F98C87;
+  --color-5: #F9CECD;
+  --color-6: #CEB5DC;
+  --color-7: #FFF5EB;
+  --color-8: #E2F6FD;
+  --color-9: #FFC5DD;
+  --color-10: #FABB74;
+  --color-11: #DC675E;
+  --color-12: #846FB0;
+  --color-13: #97C3C0;
+
+  --background-circle: #EBF8FE;
+  --background-circle-2: #F0F9F4;
+  --background-circle-3: #F8ECEC;
+  --background-circle-3: #FFF5EB;
+
   --foreground: #ffffff;
   --background-component:#f9fafb;
   --font-color-primary: #efeafc;
@@ -34,10 +75,12 @@ body {
 }
 
 body {
-  /* background: var(--background); */
   font-size: 1.5rem;
-  /* width: 100vw;
-	height: 100vh; */
+  background-image: url('/background/background-desk.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
 }
 
 @media (max-width: 700px) {
