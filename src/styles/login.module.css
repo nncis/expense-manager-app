@@ -5,63 +5,100 @@
   align-items: center;
   height: 100vh;
   width: 100vw;
-  background-color: var(--background);
   padding: 0 2rem;
 }
 
-.loginPage p {
-  color: var(--font-color-primary);
+.mainTitle {
+  color: var(--font-color-3);
+  margin: 4rem 0;
 }
 
-.mainTitle {
-  color: var(--font-color-primary);
+@media (max-width: 700px){
+  .mainTitle{
+    font-size: 2.5rem;
+  }
 }
 
 .loginInput {
-  height: 3rem;
-  width: 25rem;
+  height: 4rem;
+  width: 30rem;
   padding-left: 0.5rem;
   border-radius: 5px;
-  border: none;
+  border: 1px solid var(--stroke-2);
   margin: 1rem 0;
+  font-family: var(--font-josefin);
+  font-size: 1.5rem;
 }
+
 .loginInput:focus {
-  outline: 2px solid var(--active-secondary);
+  outline: 1px solid var(--color-4);
 
-}
-
-
-.googleBtn{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--font-color-secondary);
-  width: 4rem;
-  height: 4rem;
-  text-decoration: none;
-  cursor: pointer;
-  margin: 1rem 0;
-  border-radius: 100%;
-  border: none;
 }
 
 .submitBtn{
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 25rem;
-  height: 3.5rem;
-  margin: 1rem 0;
-  border-radius: 50px;
-  color: var(--font-color-secondary);
+  color: var(--font-color-3);
+  background-color: var(--background-button-4);
+  width: 30rem;
+  height: 5rem;
   cursor: pointer;
-  font-size: 1.5rem;
-  font-weight: 700;
-  border: none;
+  font-size: 1.8rem;
+  font-weight: 500;
+  font-family: var(--font-josefin);
+  border: 2.5px solid var(--stroke-2);
+  border-radius: 10px;
   text-decoration: none;
+  margin: 1rem 0;
 }
 
-.submitBtn:hover, .googleBtn:hover{
-  background-color: var(--active-secondary);
-  color: var(--font-color-primary);
+/* google log button */
+
+.googleBtn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--font-color-3);
+  background-color: var(--background-button-5);
+  width: 30rem;
+  height: 5.5rem;
+  cursor: pointer;
+  font-size: 1.8rem;
+  font-weight: 500;
+  font-family: var(--font-josefin);
+  border-radius: 10px;
+  border: 2.5px solid var(--stroke-2);
+  margin: 1rem 0;
+}
+
+.googleIcon {
+  margin-right: 1rem;
+  color: red;
+}
+
+.loginPage p {
+  color: var(--font-color-3);
+  margin: 2rem 2rem;
+}
+
+.divisor{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.divisorLine{
+  width: 12rem;
+  height: 2px;
+  background-color: var(--color-4);
+}
+
+.submitBtn:hover{
+  background-color: var(--active-button-4);
+}
+
+.googleBtn:hover{
+  background-color: var(--active-button-5);
+  /* box-shadow: inset 0px 0px 3px 0px rgba(0,0,0,0.75); */
 }
