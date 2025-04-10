@@ -27,6 +27,7 @@
 @media (max-width: 700px) {
   .dashboardContainer{
     padding-left: 0;
+    margin-bottom: 12rem;
     justify-content: flex-start;
     height: auto;
   }
