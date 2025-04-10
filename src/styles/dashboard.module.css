@@ -1,27 +1,31 @@
 .dashboardContainer {
+  position: relative;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  background-color: var(--foreground);
-  width: 100vw;
+
+  /* width: 100vw; */
   height: 100vh;
-  padding-left: 25rem;
+  padding-left: 15rem;
   /* margin-left: 25rem; */
-  
+  /* background-image: url('/background/background-desk.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat; */
 }
 
 .submitBtn {
-  color: var(--font-color-primary);
-  background-color: var(--background);
+  /* color: var(--font-color-3);
+  background-color: var(--background-button-4);
   width: 10rem;
   height: 4rem;
   border-radius: 10px;
-  border: none;
-  cursor: pointer;
+  border: 2px solid var(--font-color-3);
+  cursor: pointer; */
 }
 
 .submitBtn:hover {
-  background-color: var(--active-tertiary);
+  /* background-color: var(--active-button-4); */
 }
 
 @media (max-width: 700px) {
