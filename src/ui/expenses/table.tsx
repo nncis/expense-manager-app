@@ -42,13 +42,13 @@ export default async function Table (
           )}
         </tbody>
       </table>
-      <div className={style.mobileDisplay}>
+      <div className={style.mobileFormContainer}>
           {expenses?.map((expense, index) => 
-            <div className={style.expenseMobile} key={index}>
+            <div className={style.expenseRowMobileContainer} key={index}>
               <div className={style.expenseMobileContent}>
-                <h3>{expense.category}</h3>
-                <p>${numberFormatter(expense.amount / 100)}</p>
-                <p>{formatDateToLocal(expense.date)}</p>
+                <h3 className={style.expenseCategoryMobile}>{expense.category}</h3>
+                <p className={style.expenseAmountMobile}>${numberFormatter(expense.amount / 100)}</p>
+                <p className={style.expenseDateMobile}>{formatDateToLocal(expense.date)}</p>
               </div>
               <div className={style.expenseButtons}>
                 <UpdateExpense id={expense.id}/>

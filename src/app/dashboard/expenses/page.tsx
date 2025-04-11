@@ -18,10 +18,13 @@ export default async function Expenses(props:{
   const totalPages = await fetchExpensePages(query);
 
   return (
-      <div className={style.expensePage}>
+      <main className={style.expensesMainPage}>
+        <div className={style.title}>
+          <h1>Expenses</h1>
+        </div>
         <Search />
         <Table query={query} currentPage={currentPage}/>
         <Pagination totalPages={totalPages || 1}/>
-      </div>
+      </main>
   )
 }

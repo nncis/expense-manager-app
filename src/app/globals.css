@@ -29,7 +29,7 @@
   --color-1: #8AB799;
   --color-2: #4EC0EA;
   --color-3: #F6BA3D;
-  --color-4: #F98C87;
+  --color-2: #F98C87;
   --color-5: #F9CECD;
   --color-6: #CEB5DC;
   --color-7: #FFF5EB;
@@ -75,7 +75,7 @@ html {
 html,
 body {
   max-width: 100vw;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 body {
