@@ -5,27 +5,8 @@
   flex-direction: column;
   align-items: center;
   /* width: 100vw; */
-  height: 100vh;
+  /* height: 100vh; */
   padding-left: 15rem;
-  /* margin-left: 25rem; */
-  /* background-image: url('/background/background-desk.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat; */
-}
-
-.submitBtn {
-  /* color: var(--font-color-3);
-  background-color: var(--background-button-4);
-  width: 10rem;
-  height: 4rem;
-  border-radius: 10px;
-  border: 2px solid var(--font-color-3);
-  cursor: pointer; */
-}
-
-.submitBtn:hover {
-  /* background-color: var(--active-button-4); */
 }
 
 @media (max-width: 700px) {

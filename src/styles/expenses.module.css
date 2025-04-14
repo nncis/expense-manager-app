@@ -21,8 +21,6 @@
   font-weight: 500;
 }
 
-
-
 /* Mobile Form Table */
 
 .mobileFormContainer {
@@ -78,7 +76,7 @@
 
 /* Mobile with larger height */
 
-@media (min-height: 800px) and (max-height: 950px) and (max-width: 700px){
+@media (min-height: 900px) and (max-width: 700px){
   .expenseCategoryMobile {
     font-size: 2rem;
   }
@@ -92,7 +90,7 @@
 
 /* General settings mobile */
 
-@media (min-height: 800px) and (max-height: 950px) and (max-width: 700px) {
+@media (min-height: 900px) and (max-width: 700px) {
   .expenseRowMobileContainer {
     height: 14.8%;
     margin: 1.4rem 0;
@@ -207,7 +205,7 @@
   }
 }
 
-@media (min-height: 800px) and (max-height: 950px) and (max-width: 700px) {
+@media (min-height: 900px) and (max-width: 700px) {
   .btn {
     width: 5.5rem;
     height: 5.5rem;
@@ -243,20 +241,6 @@
   margin: 0.5rem;
 }
 
-/* .search input {
-  width: 90%;
-  height: 4rem;
-  border: 1px solid var(--border-color);
-  border-radius: 5px;
-  padding-left: 4%;
-}
-
-.glassIcon {
-  position: absolute;
-  width: 2rem;
-  left: 4%;
-  color: grey;
-} */
 
 /* PAGINATION BUTTONS */
 
@@ -327,7 +311,7 @@
 
 }
 
-@media (min-height: 800px) and (max-height: 950px) and (max-width: 700px) {
+@media (min-height: 900px) and (max-width: 700px) {
   .page {
     width: 5rem;
     height: 6rem;
@@ -368,9 +352,6 @@
   background-color: var(--background-button);
 }
 
-.arrowActive {
-
-}
 
 .arrowActive:hover {
   background-color: var(--active-button-4);
@@ -387,7 +368,7 @@
   }
 }
 
-@media (min-height: 800px) and (max-height: 950px) and (max-width: 700px) {
+@media (min-height: 900px) and (max-width: 700px) {
   .arrow {
     width: 5rem;
     height: 6rem;

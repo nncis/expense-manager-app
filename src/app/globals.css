@@ -64,6 +64,11 @@
 	padding: 0;
 }
 
+/* to get the real height when use mobile */
+.full-height {
+  height: calc(var(--vh, 1vh) * 100);
+}
+
 html {
   /* Set font size for easy rem calculations
   * default document font size = 16px, 1rem = 16px, 100% = 16px
