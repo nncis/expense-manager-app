@@ -281,3 +281,70 @@ export async function getAnnualExpenses(year: string): Promise<ExpenseTotalAmoun
     throw new Error('Failed to fetch expenses years');
   }
 };
+
+export async function getDataByTimePeriod(period: string | undefined) {
+  const session = await getServerSession(authOptions);
+  const user = session?.user;
+}
+
+
+export async function getFirstAndLastExpensesDates() {
+  const session = await getServerSession(authOptions);
+  const user = session?.user;
+
+  if (!user) {
+    console.error('Authentication Error: User is not authenticated');
+    throw new Error('User is not authenticated');
+  };
+
+  try {
+    const data = await sql`
+      SELECT 
+        MIN(expenses.date) AS first_expense,
+        MAX(expenses.date) AS last_expense
+      FROM "User"
+      INNER JOIN expenses ON "User".id = expenses.user_id
+      WHERE "User".email = ${user.email} 
+      `
+      const row = data.rows[0]
+      const formatted = [
+        row.first_expense,
+        row.last_expense
+      ]
+
+    return formatted
+  }catch(error){
+    console.error('Error getting first and last expenses', error);
+    throw new Error('Failed to process data');
+  }
+}
+
+export async function getExpensesByWeek(date: string | undefined){
+  const session = await getServerSession(authOptions);
+  const user = session?.user;
+
+  if (!user) {
+    console.error('Authentication Error: User is not authenticated');
+    throw new Error('User is not authenticated');
+  };
+
+  try {
+    const data = await sql`
+      SELECT 
+        category,
+        amount,
+        date
+      FROM "User"
+      INNER JOIN expenses ON "User".id = expenses.user_id
+      WHERE "User".email = ${user.email}
+      AND expenses.date BETWEEN ${date}::date AND (${date}::date + INTERVAL '6 days')
+      `
+
+    return data.rows
+
+  } catch(error){
+    console.error('Error fetching expenses by week', error);
+    throw new Error('Failed to process data');
+  }
+
+}

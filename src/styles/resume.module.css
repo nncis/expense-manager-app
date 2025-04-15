@@ -1,4 +1,4 @@
-.dashboard {
+.dashboardMainPage {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -7,6 +7,29 @@
   width: 100%;
   height: 100%;
 }
+
+.title {
+  position: absolute;
+  top: 50;
+  left: 230; 
+  font-style: italic;
+  font-weight: 500;
+}
+
+.title h1 {
+  font-style: italic;
+  font-weight: 500;
+}
+
+@media (max-width: 700px) {
+  .title {
+    position: relative;
+    top: auto;
+    left: auto;
+  }
+}
+
+
 /* BAR CHART */
 .expenseBarChart {
   display: flex;
@@ -14,6 +37,7 @@
   padding: 1rem;
   background-color: var(--background-component);
   border-radius: 10px;
+  border: 2px solid var(--stroke-2);
   width: 40rem;
   height: 30rem;
   margin: 1rem 0;
@@ -38,7 +62,7 @@
 
 @media (max-width: 700px) {
   .expenseBarChart {
-    width: 95%;
+    width: 100%;
     height: 35rem;
   }
 }
@@ -137,8 +161,7 @@
 
 
 @media (max-width: 700px) {
-  .dashboard {
-    padding: 0 2rem;
+  .dashboardMainPage {
     box-sizing: border-box;
   }
 
@@ -151,3 +174,20 @@
   }
 } 
 
+@media (max-width: 700px){
+
+  .dashboardGraphs  {
+    height: 85%;
+    overflow: auto;
+  }
+
+  .periodSelectorContainer {
+    height: 10%;
+    width: 100%;
+  }
+
+ .title {
+   height: 5%;
+ }
+
+}

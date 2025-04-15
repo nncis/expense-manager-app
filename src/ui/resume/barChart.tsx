@@ -20,7 +20,6 @@ export default function AnnualChartExpense({
     try {
       const response = await fetch(`/api/resume/barchart?year=${year}`);
       const data = await response.json();
-      console.log(data)
       setData(data);
     } catch (error) {
       console.error('Error fetching data:', error);
