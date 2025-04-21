@@ -1,17 +1,25 @@
 
-import MonthWeekSelector from '@/ui/resume/monthAndWeeklySelector';
-import NavigationWeeklyButtons from '@/components/NavigationWeeklyButtons';
 
-export default function PeriodSelectorButtons(){
+import NavigationButtons from '@/components/NavigationButtons';
+import PeriodSelectorButton from "@/components/PeriodSelectorButton"
+
+
+
+export default async function PeriodSelectorButtons(props: {period: string}){
 
 
   return (
     <>
-      <MonthWeekSelector />
-      
-      <NavigationWeeklyButtons />
-      {/* Weeks or Years Selectors depends of the URL period=week or period=monthly*/}
-      {/* or <NavigationMonthlyButton />*/}
+      {/* Select between "Weekly" or "Monthly" periods*/}
+            <PeriodSelectorButton period="weekly" title="Weekly" />
+            <PeriodSelectorButton period="monthly" title="Monthly" />
+
+      {/* Navigate through weeks periods, starting by the last Sunday to the next Saturday or the last data in db */}
+      {/* Navigate throguht months periods */}
+      {props.period == "monthly" 
+        ? <NavigationButtons period={props.period} /> 
+        : <NavigationButtons period={props.period} />}
+    
     </>
   )
 }

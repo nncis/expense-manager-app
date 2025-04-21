@@ -346,5 +346,32 @@ export async function getExpensesByWeek(date: string | undefined){
     console.error('Error fetching expenses by week', error);
     throw new Error('Failed to process data');
   }
+}
 
+export async function expenseByMonth(date: string | undefined){
+  const session = await getServerSession(authOptions);
+  const user = session?.user;
+
+  if (!user) {
+    console.error('Authentication Error: User is not authenticated');
+    throw new Error('User is not authenticated');
+  };
+
+  try {
+    const data = await sql`
+      SELECT
+        category,
+        amount,
+        date
+      FROM "User"
+      INNER JOIN expenses ON "User".id = expenses.user_id
+      WHERE "User".email = ${user.email}
+      AND expenses.date >= (${date} || '-01')::date
+      AND expenses.date < ((${date} || '-01')::date + INTERVAL '1 month')
+    `
+    return data.rows
+  } catch(error){
+    console.error('Error fetching expenses by month', error);
+    throw new Error('Failed to process data');
+  }
 }
