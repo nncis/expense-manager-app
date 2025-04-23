@@ -1,5 +1,7 @@
 import style from '@/styles/resume.module.css';
 import PieChart from '@/ui/resume/PieChart';
+import PieGraph from '@/components/pieGraph';
+import BarGraph from '@/components/barGraph';
 import BarChart from '@/ui/resume/barChart';
 import { getYears, getExpensesByWeek, expenseByMonth } from '@/lib/data';
 import PeriodSelectorButtons from '@/ui/resume/PeriodSelector'; 
@@ -19,9 +21,9 @@ export default async function Resume({
     const week = (await searchParams).week;
 
     //Expenses of the last week
-    const dateWeekly = await getExpensesByWeek(week);
+    const dataWeekly = await getExpensesByWeek(week);
     const dataMonthly = await expenseByMonth(month);
-    console.log(dataMonthly)
+    
     //
     const periodTime = (await searchParams)?.period || "weekly";
 
@@ -39,8 +41,11 @@ export default async function Resume({
         <PeriodSelectorButtons period={periodTime}/> 
       </div>
       <div className={style.dashboardGraphs}>
-        <PieChart />
-        <BarChart selectYears={selectYears} />
+        <PieGraph data={week ? dataWeekly : dataMonthly} />
+        <BarGraph data={week ? dataWeekly : dataMonthly}/>
+        {/* <PieChart /> */}
+        {/* <BarChart selectYears={selectYears} /> */}
+        
       </div>
     </main>
   )

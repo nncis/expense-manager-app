@@ -328,8 +328,10 @@ export async function getExpensesByWeek(date: string | undefined){
     throw new Error('User is not authenticated');
   };
 
+  const convertCentsToDollars = (amountInCents: number) => amountInCents / 100;
+
   try {
-    const data = await sql`
+    const data = await sql<ExpenseByDate>`
       SELECT 
         category,
         amount,
@@ -340,7 +342,22 @@ export async function getExpensesByWeek(date: string | undefined){
       AND expenses.date BETWEEN ${date}::date AND (${date}::date + INTERVAL '6 days')
       `
 
-    return data.rows
+      if (!data.rows.length) {
+        console.warn('No expenses found for the current week');
+        return [];
+      }
+
+      try {
+        const weekExpenses = data.rows.map((expense) => ({
+          ...expense,
+          amount: convertCentsToDollars(expense.amount),
+        }));
+    
+        return weekExpenses;
+      } catch (mappingError) {
+        console.error('Error while mapping data:', mappingError);
+        throw new Error('Failed to process data');
+      };
 
   } catch(error){
     console.error('Error fetching expenses by week', error);
@@ -357,8 +374,10 @@ export async function expenseByMonth(date: string | undefined){
     throw new Error('User is not authenticated');
   };
 
+  const convertCentsToDollars = (amountInCents: number) => amountInCents / 100;
+
   try {
-    const data = await sql`
+    const data = await sql<ExpenseByDate>`
       SELECT
         category,
         amount,
@@ -369,7 +388,23 @@ export async function expenseByMonth(date: string | undefined){
       AND expenses.date >= (${date} || '-01')::date
       AND expenses.date < ((${date} || '-01')::date + INTERVAL '1 month')
     `
-    return data.rows
+    if (!data.rows.length) {
+      console.warn('No expenses found for the current week');
+      return [];
+    }
+
+    try {
+      const montExpenses = data.rows.map((expense) => ({
+        ...expense,
+        amount: convertCentsToDollars(expense.amount),
+      }));
+  
+      return montExpenses;
+    } catch (mappingError) {
+      console.error('Error while mapping data:', mappingError);
+      throw new Error('Failed to process data');
+    };
+    
   } catch(error){
     console.error('Error fetching expenses by month', error);
     throw new Error('Failed to process data');

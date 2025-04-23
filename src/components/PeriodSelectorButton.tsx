@@ -1,6 +1,8 @@
 'use client'
 
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation';
+import style from '@/styles/resume.module.css';
+import clsx from "clsx";
 
 export default function PeriodSelectorButton(props: {period: string, title: string}){
 
@@ -17,7 +19,10 @@ export default function PeriodSelectorButton(props: {period: string, title: stri
 
   return(
     <>
-      <button onClick={filter}>{props.title}</button>
+      <button 
+        className={clsx(style.periodButton)}
+        onClick={filter}
+        >{props.title}</button>
     </>
   )
 }

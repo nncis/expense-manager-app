@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
+import style from '@/styles/resume.module.css';
+import { ChevronLeftIcon, ChevronRightIcon  } from '@heroicons/react/24/outline';
 
 export default function PeriodNavigationButton(props: {period: string}){
   
@@ -128,16 +130,24 @@ export default function PeriodNavigationButton(props: {period: string}){
       {
         props.period == "weekly" 
         ? 
-        <div>
-          <button onClick={lastWeek} disabled={getSunday(currentDate) <= getSunday(firstExpense)}>⬅️</button> 
+        <div className={style.periodNavButtons}>
+          <button onClick={lastWeek} disabled={getSunday(currentDate) <= getSunday(firstExpense)}>
+            <ChevronLeftIcon className={style.arrowBtn}/>
+          </button> 
           <p>{formatDate(currentDate)}</p>
-          <button onClick={nextWeek} disabled={getSunday(currentDate) >= getSunday(lastExpense)}>➡️</button>
+          <button onClick={nextWeek} disabled={getSunday(currentDate) >= getSunday(lastExpense)}>
+            <ChevronRightIcon className={style.arrowBtn}/>
+          </button>
         </div>
         : 
-        <div>
-          <button onClick={lastMonth} disabled={firstOfMonth <= getFirstDayOfMonth(firstExpense)}>⬅️</button> 
+        <div className={style.periodNavButtons}>
+          <button onClick={lastMonth} disabled={firstOfMonth <= getFirstDayOfMonth(firstExpense)}>
+          <ChevronLeftIcon className={style.arrowBtn}/>
+          </button> 
           <p>{formatMonth(firstOfMonth)}</p>
-          <button onClick={nextMonth} disabled={firstOfMonth >= getFirstDayOfMonth(lastExpense)}>➡️</button>
+          <button onClick={nextMonth} disabled={firstOfMonth >= getFirstDayOfMonth(lastExpense)}>
+            <ChevronRightIcon className={style.arrowBtn}/>
+          </button>
         </div>
       }
         

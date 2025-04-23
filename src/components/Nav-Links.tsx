@@ -3,7 +3,7 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import clsx from 'clsx';
 import style from '@/styles/nav.module.css'
-import { PencilSquareIcon, BookOpenIcon, ChartBarIcon, PlusIcon } from '@heroicons/react/24/outline';
+import { BookOpenIcon, ChartBarIcon, PlusIcon } from '@heroicons/react/24/outline';
 
 const links = [
   {
