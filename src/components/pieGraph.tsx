@@ -113,19 +113,19 @@ export default function PieGraph({ data }: GraphProp) {
       });
 
     //draw tooltip
-    arcs.on('mouseover', function (event, d) {
-      tooltip
-        .style('left', `${event.pageX + 10}px`)
-        .style('top', `${event.pageY - 20}px`)
-        .style('opacity', 1)
-        .html(`
-                  <strong>${d.data.category}</strong><br />
-                  Valor: $${numberFormatter(d.data.amount)}
-                `);
-    })
-      .on('mouseout', () => {
-        tooltip.style('opacity', 0);
-      });
+    // arcs.on('mouseover', function (event, d) {
+    //   tooltip
+    //     .style('left', `${event.pageX + 10}px`)
+    //     .style('top', `${event.pageY - 20}px`)
+    //     .style('opacity', 1)
+    //     .html(`
+    //               <strong>${d.data.category}</strong><br />
+    //               Valor: $${numberFormatter(d.data.amount)}
+    //             `);
+    // })
+    //   .on('mouseout', () => {
+    //     tooltip.style('opacity', 0);
+    //   });
 
     //Legend
     const legend = svg
@@ -150,8 +150,8 @@ export default function PieGraph({ data }: GraphProp) {
 
     legendItems
       .append('text')
-      .attr('x', 25)
-      .attr('y', 4)
+      .attr('x', 12)
+      .attr('y', 2)
       .text(d => d.category)
       .style('font-size', '1.5rem')
       .style('alignment-baseline', 'middle');

@@ -6,12 +6,13 @@
   justify-content: center;
   width: 100%;
   height: 100%;
+  position: relative;
 }
 
 .title {
   position: absolute;
-  top: 50;
-  left: 230; 
+  top: 30;
+  left: 100; 
   font-style: italic;
   font-weight: 500;
 }
