@@ -68,6 +68,12 @@
   height: 100%;
 }
 
+@media (max-width: 700px){
+  .periodNavButtons {
+    width: 100%;
+  }
+}
+
 
 .arrowBtn{
   width: 3rem;
@@ -80,9 +86,12 @@
 }
 
 .periodButton {
-  width: 8rem;
+  width: 10rem;
   height: 4rem;
   cursor: pointer;
+  margin: 1rem;
+  border: 2px solid var(--stroke-2);
+  border-radius: 5px;
 }
 
 .periodButtonActive {
@@ -90,6 +99,20 @@
   pointer-events: none;
   cursor: not-allowed;
 }
+
+@media (max-width: 700px) {
+  .periodButtonsContainer {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .periodButton {
+    width: 48%;
+    margin: 1rem 0;
+
+  }
+
+}
+
 
 
 /* BAR CHART */

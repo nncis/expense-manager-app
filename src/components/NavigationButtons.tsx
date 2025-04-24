@@ -126,7 +126,7 @@ export default function PeriodNavigationButton(props: {period: string}){
   const firstOfMonth = getFirstDayOfMonth(currentDate);
 
   return (
-    <div>
+    <>
       {
         props.period == "weekly" 
         ? 
@@ -151,6 +151,6 @@ export default function PeriodNavigationButton(props: {period: string}){
         </div>
       }
         
-    </div>
+    </>
   )
 }
