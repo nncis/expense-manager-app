@@ -54,7 +54,7 @@ export default function PieGraph({ data }: GraphProp) {
     const innerHeight = height - margin.top - margin.bottom;
     const radius = Math.min(width, height) / 5;
     const color = d3.scaleOrdinal(d3.schemePastel1);
-    const dataLength = dataResult.length > 6 ? dataResult.length + 2.5 : dataResult.length;
+    const dataLength = dataResult.length > 6 ? dataResult.length + 2.5 : dataResult.length > 6 && height < 266 ? dataResult.length : dataResult.length;
 
     //Clean SVG
     svg.selectAll("*").remove();
@@ -70,24 +70,22 @@ export default function PieGraph({ data }: GraphProp) {
     //Create a g element for the Pie Graph
     const g = svg
       .append('g')
-      .attr('transform', `translate(${(innerWidth / 5)} , ${(innerHeight / 2.3 )})`)
+      .attr('transform', `translate(${(innerWidth / 5)} , ${(height < 266 ? innerHeight / 2 : innerHeight / 2.3 )})`)
       .attr('viewBox', `0 0 ${width} ${height}`) // Relativo a un sistema de coordenadas base
       .attr('preserveAspectRatio', 'xMidYMid meet') // Mantiene la relación de aspecto
       .classed('responsive', true);
 
-
-
     //Tooltip
-    const tooltip = d3.select('body')
-      .append('div')
-      .attr('id', 'tooltip')
-      .style('position', 'absolute')
-      .style('background', 'rgba(0, 0, 0, 0.7)')
-      .style('color', '#fff')
-      .style('padding', '5px 10px')
-      .style('border-radius', '5px')
-      .style('pointer-events', 'none')
-      .style('opacity', 0);
+    // const tooltip = d3.select('body')
+    //   .append('div')
+    //   .attr('id', 'tooltip')
+    //   .style('position', 'absolute')
+    //   .style('background', 'rgba(0, 0, 0, 0.7)')
+    //   .style('color', '#fff')
+    //   .style('padding', '5px 10px')
+    //   .style('border-radius', '5px')
+    //   .style('pointer-events', 'none')
+    //   .style('opacity', 0);
 
     //Graphing the pie
     const arcs = g.selectAll('path')
@@ -130,7 +128,10 @@ export default function PieGraph({ data }: GraphProp) {
     //Legend
     const legend = svg
       .append('g')
-      .attr('transform', `translate(${(innerWidth / 2.3)}, ${(innerHeight / 2.5 - dataLength * 8)})`);
+      .attr('transform', `translate(${(innerWidth / 2.3)}, 
+      ${(height < 266 ? 
+        innerHeight / 2.3 - dataLength * 7
+        : innerHeight / 2.5 - dataLength * 8)})`);
 
     const legendItems = legend
       .selectAll('.legend-item')
@@ -143,7 +144,7 @@ export default function PieGraph({ data }: GraphProp) {
     //draw legend
     legendItems
       .append('circle')
-      .attr('r', 8)
+      .attr('r', 7)
       .attr('stroke', 'black')
       .attr('stroke-width', 1.5)
       .attr('fill', d => color(d.category.toString()));
@@ -164,9 +165,9 @@ export default function PieGraph({ data }: GraphProp) {
       .style('font-size', '1.4rem')
       .style('alignment-baseline', 'middle');
 
-    return () => {
-      tooltip.remove();
-    };
+    // return () => {
+    //   tooltip.remove();
+    // };
   }, [data])
   return (
     <div className={style.SVGpieGraphContainer}>
