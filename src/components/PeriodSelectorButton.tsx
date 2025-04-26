@@ -3,14 +3,13 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import style from '@/styles/resume.module.css';
 import clsx from "clsx";
-import { useEffect, useState } from 'react';
 
 export default function PeriodSelectorButton(props: {period: string, title: string}){
 
   const router = useRouter()
   const searchParams = useSearchParams()
   const params = new URLSearchParams(searchParams.toString())
-  const period = params.get('period');
+  const period = params.get('period') || "weekly";
 
   const filter = () => {
     params.delete('week');
@@ -19,12 +18,6 @@ export default function PeriodSelectorButton(props: {period: string, title: stri
     router.replace(`?${params.toString()}`)
   }
   
-  // useEffect(() => {
-    
-
-
-  // },[])
-
   return(
       <button 
         className={clsx(

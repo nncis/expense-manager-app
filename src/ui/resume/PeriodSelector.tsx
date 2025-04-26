@@ -1,10 +1,6 @@
-
-
 import NavigationButtons from '@/components/NavigationButtons';
 import PeriodSelectorButton from "@/components/PeriodSelectorButton"
 import style from '@/styles/resume.module.css';
-import clsx from "clsx";
-
 
 export default async function PeriodSelectorButtons(props: {period: string}){
 

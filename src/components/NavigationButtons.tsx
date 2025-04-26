@@ -12,8 +12,8 @@ export default function PeriodNavigationButton(props: {period: string}){
 
   useEffect(()=>{
     const sunday = getSunday(currentDate);
-    setCurrentDate(sunday);
     handleFirstLastExpense();
+    setCurrentDate(sunday);
   },[])
 
   useEffect(() => {
@@ -23,6 +23,7 @@ export default function PeriodNavigationButton(props: {period: string}){
     const params = new URLSearchParams(searchParams.toString());
     if(props.period == "weekly"){
       const sunday = getSunday(currentDate);
+      console.log(sunday)
       setCurrentDate(sunday);
       params.set('week', formatDate(sunday));
       router.push(`?${params.toString()}`);

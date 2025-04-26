@@ -2,7 +2,7 @@
 
 import * as d3 from "d3";
 import React, { useEffect, useRef, useState } from 'react';
-import { ExpenseTotalAmountPerMonth, ExpenseByDate, ExpenseAmountByDate } from '@/lib/definitions';
+import { ExpenseTotalAmountPerMonth, GraphData ,ExpenseByDate, ExpenseAmountByDate } from '@/lib/definitions';
 import style from '@/styles/resume.module.css';
 import { numberFormatter } from '@/lib/utils';
 
@@ -11,24 +11,19 @@ import { numberFormatter } from '@/lib/utils';
 // }
 
 interface GraphProp {
-  data: ExpenseByDate[];
+  data: GraphData[];
+  period: string;
 }
 
-export default function YearGraph({ data } : GraphProp ) {
+// interface GraphData  {
+//   date: string | "";
+//   total: number | 0;
+// }
+
+export default function YearGraph({ data, period } : GraphProp ) {
+
   const chartRef = useRef<SVGSVGElement | null>(null);
   const [dimensions, setDimensions] = useState({ width: 326, height: 244 });
-
-  const dataResult = data.reduce((acc: { [key: string]: number }, item) => {
-    const dateStr = item.date.toISOString().split('T')[0];
-    acc[dateStr] = (acc[dateStr] || 0) + item.amount;
-    return acc;
-  }, {});
-
-  const result = Object.entries(dataResult).map(([dateStr, total]) => {
-    const dateObj = new Date(dateStr);
-    const dayOfWeek = dateObj.toLocaleString('en-US', { weekday: 'short' }); // "Sun", "Mon", etc.
-    return { date: dayOfWeek, total };
-  });
   
   useEffect(() => {  
     const handleResize = () => {
@@ -67,12 +62,12 @@ export default function YearGraph({ data } : GraphProp ) {
 
     //Scales
     const xScale = d3.scaleBand()
-      .domain(daysOfWeek) // Meses en el eje X
+      .domain(period == "monthly" ? yearMonths : daysOfWeek) //change depends if weekly or monthly
       .range([margin.left, width - margin.right])
       .padding(0.6);
 
     const yScale = d3.scaleLinear()
-      .domain([0, d3.max(result, d => d.total) || 0]) // Montos en el eje Y
+      .domain([0, d3.max(data, d => d.total) || 0]) // Montos en el eje Y
       .nice()
       .range([innerHeight - margin.bottom, margin.top]);
 
@@ -101,7 +96,7 @@ export default function YearGraph({ data } : GraphProp ) {
       .style("font-weight", "500")
 
     //Max Total
-    const maxValue = d3.max(result, d => d.total) ?? 0;
+    const maxValue = d3.max(data, d => d.total) ?? 0;
     const formatValue = d3.format(".2s");
 
     svg.append("text")
@@ -141,7 +136,7 @@ export default function YearGraph({ data } : GraphProp ) {
 
     // Barras con animación
     svg.selectAll('rect')
-      .data(result)
+      .data(data)
       .enter()
       .append('rect')
       .attr('x', d => xScale(d.date) || 0) 
@@ -190,7 +185,6 @@ export default function YearGraph({ data } : GraphProp ) {
     <>
       <div id="svgContainer" className={style.SVGbarChartContainer}>
         <svg
-       
           className={style.SVGbarChart}
           ref={chartRef}
           viewBox={`0 0 ${dimensions.width} ${dimensions.height - 60}`}

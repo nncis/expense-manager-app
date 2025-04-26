@@ -3,7 +3,7 @@
 import { sql } from '@vercel/postgres';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from '@/lib/auth';
-import { Expense, ExpenseAmountByDate, ExpenseTotalAmountPerMonth, ExpenseByDate, MonthlyTotal } from './definitions';
+import { Expense, GraphData, ExpenseTotalAmountPerMonth, ExpenseByDate, MonthlyTotal } from './definitions';
 
 const ITEMS_PER_PAGE = 6;
 
@@ -282,11 +282,6 @@ export async function getAnnualExpenses(year: string): Promise<ExpenseTotalAmoun
   }
 };
 
-export async function getDataByTimePeriod(period: string | undefined) {
-  const session = await getServerSession(authOptions);
-  const user = session?.user;
-}
-
 
 export async function getFirstAndLastExpensesDates() {
   const session = await getServerSession(authOptions);
@@ -365,7 +360,7 @@ export async function getExpensesByWeek(date: string | undefined){
   }
 }
 
-export async function expenseByMonth(date: string | undefined){
+export async function getExpenseByMonth(date: string | undefined){
   const session = await getServerSession(authOptions);
   const user = session?.user;
 
@@ -407,6 +402,103 @@ export async function expenseByMonth(date: string | undefined){
     
   } catch(error){
     console.error('Error fetching expenses by month', error);
+    throw new Error('Failed to process data');
+  }
+}
+
+export async function getExpenseTotalAmountAnnualy(date: string | undefined) {
+  const session = await getServerSession(authOptions);
+  const user = session?.user;
+
+  if (!user) {
+    console.error('Authentication Error: User is not authenticated');
+    throw new Error('User is not authenticated');
+  };
+
+  try {
+    const data = await sql<GraphData>`
+      SELECT
+        TO_CHAR(date, 'Mon') AS date,
+        SUM(amount) AS total
+      FROM "User"
+      INNER JOIN expenses ON "User".id = expenses.user_id
+      WHERE "User".email = ${user.email}
+        AND EXTRACT(YEAR FROM date) = ${date}
+      GROUP BY TO_CHAR(date, 'Mon'), EXTRACT(MONTH FROM date)
+      ORDER BY EXTRACT(MONTH FROM date);
+    `
+    if (!data.rows.length) {
+      console.warn('No expenses found for the current year');
+      return [];
+    }
+
+    const convertCentsToDollars = (amountInCents: number) => amountInCents / 100;
+
+    try {
+
+      const annualExpenses = data.rows.map((expense) => ({
+        ...expense,
+        total: convertCentsToDollars(expense.total),
+      }));
+  
+      return annualExpenses;
+    } catch (mappingError) {
+      console.error('Error while mapping data:', mappingError);
+      throw new Error('Failed to process data');
+    };
+
+  } catch(error){
+    console.error('Error fetching expenses by year', error);
+    throw new Error('Failed to process data');
+  }
+};
+
+export async function getExpenseTotalAmountWeekly(date: string | undefined) {
+  const session = await getServerSession(authOptions);
+  const user = session?.user;
+
+  if (!user) {
+    console.error('Authentication Error: User is not authenticated');
+    throw new Error('User is not authenticated');
+  };
+
+  try{
+    const data = await sql<GraphData>`
+      SELECT 
+        TO_CHAR(date, 'Dy') AS date,
+        SUM(amount) AS total
+      FROM "User"
+      INNER JOIN expenses ON "User".id = expenses.user_id
+      WHERE "User".email = ${user.email}
+        AND date BETWEEN ${date}::date AND (${date}::date + INTERVAL '6 days')
+      GROUP BY TO_CHAR(date, 'Dy'), EXTRACT(DOW FROM date)
+      ORDER BY EXTRACT(DOW FROM date);
+    `
+
+    if (!data.rows.length) {
+      console.warn('No expenses found for the current year');
+      return [];
+    }
+
+    const convertCentsToDollars = (amountInCents: number) => amountInCents / 100;
+
+    try {
+
+      const weeklyExpenses = data.rows.map((expense) => ({
+        ...expense,
+        total: convertCentsToDollars(expense.total),
+      }));
+  
+      return weeklyExpenses;
+    } catch (mappingError) {
+      console.error('Error while mapping data:', mappingError);
+      throw new Error('Failed to process data');
+    };
+
+    
+
+  }catch(error){
+    console.error('Error fetching total amount weekly', error);
     throw new Error('Failed to process data');
   }
 }

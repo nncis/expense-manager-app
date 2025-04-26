@@ -52,3 +52,8 @@ export type MonthlyTotal = {
   month: string;
   total: number;
 };
+
+export type GraphData = {
+  date: string;
+  total: number;
+}
