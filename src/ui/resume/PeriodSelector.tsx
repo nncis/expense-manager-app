@@ -2,8 +2,7 @@ import NavigationButtons from '@/components/NavigationButtons';
 import PeriodSelectorButton from "@/components/PeriodSelectorButton"
 import style from '@/styles/resume.module.css';
 
-export default async function PeriodSelectorButtons(props: {period: string}){
-
+export default async function PeriodSelectorButtons(props: {period: string, firstAndLastExpenseDates: Date[] | []}){
 
   return (
     <>
@@ -16,11 +15,12 @@ export default async function PeriodSelectorButtons(props: {period: string}){
 
       {/* Navigate through weeks periods, starting by the last Sunday to the next Saturday or the last data in db */}
       {/* Navigate throguht months periods */}
-      {props.period == "monthly" 
-        ? <NavigationButtons period={props.period} /> 
-        : <NavigationButtons period={props.period} />
+      <>
+       {props.period == "monthly" 
+        ? <NavigationButtons period={props.period} firstAndLastExpenseDates={props.firstAndLastExpenseDates}/> 
+        : <NavigationButtons period={props.period} firstAndLastExpenseDates={props.firstAndLastExpenseDates}/>
         }
-    
+      </>
     </>
   )
 }

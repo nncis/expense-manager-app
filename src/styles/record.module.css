@@ -10,8 +10,8 @@
 
 .title {
   position: absolute;
-  top: 30;
-  left: 100; 
+  top: 30px;
+  left: 100px; 
   font-style: italic;
   font-weight: 500;
 }

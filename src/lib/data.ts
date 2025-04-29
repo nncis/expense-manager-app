@@ -207,31 +207,6 @@ export async function getMonthExpenses(): Promise<ExpenseByDate[]> {
   }
 };
 
-export async function getYears(){
-  
-  const session = await getServerSession(authOptions);
-  const user = session?.user;
-
-  if (!user) {
-    console.error('Authentication Error: User is not authenticated');
-    throw new Error('User is not authenticated');
-  }
-
-  try {
-    const data = await sql `
-      SELECT DISTINCT EXTRACT(YEAR FROM expenses.date) AS year
-      FROM "User"
-      INNER JOIN expenses ON "User".id = expenses.user_id
-      WHERE "User".email = ${user.email}
-      ORDER BY year;
-    `
-    return data.rows
-    
-  } catch(dbError){
-    console.error('Database Error:', dbError);
-    throw new Error('Failed to fetch expenses years');
-  }
-};
 
 export async function getAnnualExpenses(year: string): Promise<ExpenseTotalAmountPerMonth[]> {
  
@@ -301,6 +276,11 @@ export async function getFirstAndLastExpensesDates() {
       INNER JOIN expenses ON "User".id = expenses.user_id
       WHERE "User".email = ${user.email} 
       `
+      if (!data.rows.length) {
+        console.warn('No expenses found');
+        return [];
+      }
+
       const row = data.rows[0]
       const formatted = [
         row.first_expense,

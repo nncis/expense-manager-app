@@ -1,11 +1,8 @@
 import style from '@/styles/resume.module.css';
-import PieChart from '@/ui/resume/PieChart';
 import PieGraph from '@/components/pieGraph';
 import BarGraph from '@/components/barGraph';
-import BarChart from '@/ui/resume/barChart';
-import { getYears, getExpensesByWeek, getExpenseByMonth, getExpenseTotalAmountAnnualy, getExpenseTotalAmountWeekly } from '@/lib/data';
+import { getExpensesByWeek, getExpenseByMonth, getExpenseTotalAmountAnnualy, getExpenseTotalAmountWeekly, getFirstAndLastExpensesDates } from '@/lib/data';
 import PeriodSelectorButtons from '@/ui/resume/PeriodSelector'; 
-import { Suspense } from 'react';
 
 export default async function Resume({
   searchParams
@@ -13,7 +10,7 @@ export default async function Resume({
   searchParams: Promise<{
     period?: string;
     week?: string;
-    month: string;
+    month?: string;
   }>
 }){
 
@@ -33,9 +30,9 @@ export default async function Resume({
     
     const periodTime = (await searchParams)?.period || "weekly";
 
+    const firstAndLastExpenseDates = await getFirstAndLastExpensesDates();
+
     //Data for  Graph by years
-    const yearsData = await getYears(); //get years from expenses to make the <select> options
-    const selectYears = yearsData.map(year => year.year);
 
   return(
     <main className={style.dashboardMainPage}>
@@ -44,7 +41,7 @@ export default async function Resume({
       </div>
       <div className={style.periodSelectorContainer}>
         {/* Select periods (monthly or weekly) buttons and navigates through dates  */}
-        <PeriodSelectorButtons period={periodTime}/> 
+          <PeriodSelectorButtons period={periodTime} firstAndLastExpenseDates={firstAndLastExpenseDates}/> 
       </div>
       <div className={style.dashboardGraphs}>
         
