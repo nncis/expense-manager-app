@@ -4,8 +4,11 @@ import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from 'next/navigation';
 import style from '@/styles/resume.module.css';
 import { ChevronLeftIcon, ChevronRightIcon  } from '@heroicons/react/24/outline';
+import { set } from "zod";
 
 export default function PeriodNavigationButton(props: {period: string, firstAndLastExpenseDates: Date[] | []}){
+
+  console.log(props.firstAndLastExpenseDates)
 
   const firstExpense = new Date(props.firstAndLastExpenseDates[0]); 
   const lastExpense = new Date(props.firstAndLastExpenseDates[1]);
@@ -17,6 +20,8 @@ export default function PeriodNavigationButton(props: {period: string, firstAndL
   const router = useRouter();
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams.toString());
+
+  
   
   useEffect(() => {
     //when press monthly or weekly button, it needs to make a first request.
@@ -39,14 +44,10 @@ export default function PeriodNavigationButton(props: {period: string, firstAndL
 
 
   useEffect(() => {
-    if(lastExpense){
-       setCurrentSunday(getSunday(new Date(lastExpense)));
-      params.set('week', formatDate(currentSunday));
-      router.push(`?${params.toString()}`);
-    } else {
-      return
-    }
-   
+    const sunday = getSunday(lastExpense);
+    setCurrentSunday(sunday);
+    params.set('week', formatDate(sunday));
+    router.push(`?${params.toString()}`);
   },[])
   
   const getSunday = (date: Date) => {
