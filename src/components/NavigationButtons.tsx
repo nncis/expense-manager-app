@@ -42,7 +42,7 @@ export default function PeriodNavigationButton(props: {period: string, firstAndL
 
   useEffect(() => {
     const sunday = getSunday(lastExpense);
-    setCurrentSunday(sunday);
+    // setCurrentSunday(sunday);
     params.set('week', formatDate(sunday));
     router.push(`?${params.toString()}`);
   },[])
