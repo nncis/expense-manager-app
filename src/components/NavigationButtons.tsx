@@ -4,11 +4,8 @@ import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from 'next/navigation';
 import style from '@/styles/resume.module.css';
 import { ChevronLeftIcon, ChevronRightIcon  } from '@heroicons/react/24/outline';
-import { set } from "zod";
 
 export default function PeriodNavigationButton(props: {period: string, firstAndLastExpenseDates: Date[] | []}){
-
-  console.log(props.firstAndLastExpenseDates)
 
   const firstExpense = new Date(props.firstAndLastExpenseDates[0]); 
   const lastExpense = new Date(props.firstAndLastExpenseDates[1]);
