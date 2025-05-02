@@ -292,7 +292,7 @@ export async function getFirstAndLastExpensesDates() {
     console.error('Error getting first and last expenses', error);
     throw new Error('Failed to process data');
   }
-}
+};
 
 export async function getExpensesByWeek(date: string | undefined){
   const session = await getServerSession(authOptions);
@@ -338,7 +338,7 @@ export async function getExpensesByWeek(date: string | undefined){
     console.error('Error fetching expenses by week', error);
     throw new Error('Failed to process data');
   }
-}
+};
 
 export async function getExpenseByMonth(date: string | undefined){
   const session = await getServerSession(authOptions);
@@ -384,7 +384,7 @@ export async function getExpenseByMonth(date: string | undefined){
     console.error('Error fetching expenses by month', error);
     throw new Error('Failed to process data');
   }
-}
+};
 
 export async function getExpenseTotalAmountAnnualy(date: string | undefined) {
   const session = await getServerSession(authOptions);
@@ -481,4 +481,4 @@ export async function getExpenseTotalAmountWeekly(date: string | undefined) {
     console.error('Error fetching total amount weekly', error);
     throw new Error('Failed to process data');
   }
-}
+};

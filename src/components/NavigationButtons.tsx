@@ -13,20 +13,21 @@ export default function PeriodNavigationButton(props: {period: string, firstAndL
   const [currentSunday, setCurrentSunday] = useState<Date>(lastExpense);
   const [firstOfMonth, setFirstOfMonth] = useState<Date>(lastExpense);
   
-
   const router = useRouter();
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams.toString());
 
-  
-  
   useEffect(() => {
     //when press monthly or weekly button, it needs to make a first request.
     //so the url will update with the last sunday before the last expense or the first of day of the last expense month
     //for example: if the last expense date is "04-17" the url will be "&week=2025-04-13"(Sunday) or "&month=2025-04"
-    if(currentSunday){
-      if(props.period == "weekly"){
-      const sunday = getSunday(currentSunday);
+    
+    console.log("navButtons")
+
+    const sunday = getSunday(currentSunday);
+
+    if(props.period == "weekly"){
+      console.log(sunday)
       setCurrentSunday(sunday);
       params.set('week', formatDate(sunday));
       router.push(`?${params.toString()}`);
@@ -35,16 +36,19 @@ export default function PeriodNavigationButton(props: {period: string, firstAndL
       params.set('month', formatMonth(firstOfMonth));
       router.push(`?${params.toString()}`);
     }
-    }
 
   },[props.period])
 
 
   useEffect(() => {
-    const sunday = getSunday(lastExpense);
+    // const sunday = getSunday(lastExpense);
     // setCurrentSunday(sunday);
-    params.set('week', formatDate(sunday));
-    router.push(`?${params.toString()}`);
+
+    // params.set('period', "weekly");
+    // router.push(`?${params.toString()}`);
+
+    // params.set('week', formatDate(sunday));
+    // router.push(`?${params.toString()}`);
   },[])
   
   const getSunday = (date: Date) => {
