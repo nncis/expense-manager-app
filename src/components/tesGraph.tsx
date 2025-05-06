@@ -5,32 +5,29 @@ import React, { useEffect, useRef, useState } from 'react';
 import { ExpenseByDate, ExpenseAmountByDate } from '@/lib/definitions';
 import { numberFormatter } from '@/lib/utils';
 import style from '@/styles/resume.module.css';
-// import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from 'next/navigation';
 
-interface GraphProp {
-  data: ExpenseByDate[];
-}
 
-export default function PieGraph({ data }: GraphProp) {
 
-  // const [searchParams, setSearchParams] = useSearchParams();
+export default function PieGraph() {
   const chartRef = useRef<SVGSVGElement | null>(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-  // const [dataExpense, setDataExpense] = useState<ExpenseByDate>({category: "", amount: 0, date: new Date()});
-
-  // const week = searchParams.get("week");
+  const [dataExpense, setDataExpense] = useState<ExpenseAmountByDate[]>([{category: "", amount: 0}]);
+  const searchParams = useSearchParams();
+  const week = searchParams.get("week");
 
     // Agrupar datos por categoría y sumar los montos
-  const dataResult: ExpenseAmountByDate[] = Object.values(
-    data.reduce<Record<string, ExpenseAmountByDate>>((acc, item) => {
-      if (acc[item.category]) {
-        acc[item.category].amount += item.amount;
-      } else {
-        acc[item.category] = { category: item.category, amount: item.amount };
-      }
-      return acc;
-    }, {})
-  ).sort((a, b) => a.amount - b.amount);
+  
+  // const dataResult: ExpenseAmountByDate[] = Object.values(
+  //   dataExpense.reduce<Record<string, ExpenseAmountByDate>>((acc, item) => {
+  //     if (acc[item.category]) {
+  //       acc[item.category].amount += item.amount;
+  //     } else {
+  //       acc[item.category] = { category: item.category, amount: item.amount };
+  //     }
+  //     return acc;
+  //   }, {})
+  // ).sort((a, b) => a.amount - b.amount);
 
   useEffect(() => {
 
@@ -46,19 +43,21 @@ export default function PieGraph({ data }: GraphProp) {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // useEffect(() => {
+  useEffect(() => {
 
-  //   fetch(`/api/resume/piegraph-weekly?week=${week}`)
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       setDataExpense(data)
-  //     })
-  //     .catch(error => {
-  //       console.error('error fetch pie graph data', error)
-  //     })
-  //     console.log(dataExpense)
-  // })
-
+      fetch(`/api/resume/piegraph-weekly?week=${week}`)
+        .then(res => res.json())
+        .then(data => {
+          console.log(data)
+          setDataExpense(data)
+        })
+        .catch(error => {
+          console.error('error fetch pie graph data', error)
+        })
+        
+      }, [week])
+      
+      console.log(dataExpense)
   useEffect(() => {
 
     if (!chartRef.current) return;
@@ -71,7 +70,7 @@ export default function PieGraph({ data }: GraphProp) {
     const innerHeight = height - margin.top - margin.bottom;
     const radius = Math.min(width, height) / 5;
     const color = d3.scaleOrdinal(d3.schemePastel1);
-    const dataLength = dataResult.length > 6 ? dataResult.length + 2.5 : dataResult.length > 6 && height < 266 ? dataResult.length : dataResult.length;
+    const dataLength = dataExpense.length > 6 ? dataExpense.length + 2.5 : dataExpense.length > 6 && height < 266 ? dataExpense.length : dataExpense.length;
 
     //Clean SVG
     svg.selectAll("*").remove();
@@ -106,7 +105,7 @@ export default function PieGraph({ data }: GraphProp) {
 
     //Graphing the pie
     const arcs = g.selectAll('path')
-      .data(pie(dataResult))
+      .data(pie(dataExpense))
       .enter()
       .append('path')
       .attr('fill', d => color(d.data.category))
@@ -152,7 +151,7 @@ export default function PieGraph({ data }: GraphProp) {
 
     const legendItems = legend
       .selectAll('.legend-item')
-      .data(dataResult)
+      .data(dataExpense)
       .enter()
       .append('g')
       .attr('class', 'legend-item')
@@ -185,13 +184,20 @@ export default function PieGraph({ data }: GraphProp) {
     // return () => {
     //   tooltip.remove();
     // };
-  }, [data])
+  }, [dataExpense])
   return (
-    <div className={style.SVGpieGraphContainer}>
-      <svg
-        className={style.SVGpieChart}
-        ref={chartRef}
-      ></svg>
-    </div>
+    <> 
+    {
+      <div className={style.SVGpieGraphContainer}>
+        <svg
+          className={style.SVGpieChart}
+          ref={chartRef}
+        >
+        </svg>
+    </div> 
+
+    }
+    </>
+ 
   )
 }

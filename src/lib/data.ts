@@ -3,7 +3,7 @@
 import { sql } from '@vercel/postgres';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from '@/lib/auth';
-import { Expense, GraphData, ExpenseTotalAmountPerMonth, ExpenseByDate, MonthlyTotal } from './definitions';
+import { Expense, GraphData, ExpenseTotalAmountPerMonth, ExpenseByDate, ExpenseAmountByDate } from './definitions';
 
 const ITEMS_PER_PAGE = 6;
 
@@ -306,15 +306,15 @@ export async function getExpensesByWeek(date: string | undefined){
   const convertCentsToDollars = (amountInCents: number) => amountInCents / 100;
 
   try {
-    const data = await sql<ExpenseByDate>`
-      SELECT 
-        category,
-        amount,
-        date
-      FROM "User"
-      INNER JOIN expenses ON "User".id = expenses.user_id
-      WHERE "User".email = ${user.email}
-      AND expenses.date BETWEEN ${date}::date AND (${date}::date + INTERVAL '6 days')
+    const data = await sql<ExpenseAmountByDate>`
+        SELECT 
+          expenses.category,
+          SUM(expenses.amount) AS amount
+        FROM "User"
+        INNER JOIN expenses ON "User".id = expenses.user_id
+        WHERE "User".email = ${user.email}
+          AND expenses.date BETWEEN ${date}::date AND (${date}::date + INTERVAL '6 days')
+        GROUP BY expenses.category
       `
 
       if (!data.rows.length) {
@@ -482,3 +482,4 @@ export async function getExpenseTotalAmountWeekly(date: string | undefined) {
     throw new Error('Failed to process data');
   }
 };
+

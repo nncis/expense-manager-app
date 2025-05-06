@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import style from '@/styles/resume.module.css';
 import { ChevronLeftIcon, ChevronRightIcon  } from '@heroicons/react/24/outline';
 
-export default function PeriodNavigationButton(props: {period: string, firstAndLastExpenseDates: Date[] | []}){
+export default function PeriodNavigationButton(props: {period: string | null, firstAndLastExpenseDates: Date[] | []}){
 
   const firstExpense = new Date(props.firstAndLastExpenseDates[0]); 
   const lastExpense = new Date(props.firstAndLastExpenseDates[1]);
@@ -21,13 +21,11 @@ export default function PeriodNavigationButton(props: {period: string, firstAndL
     //when press monthly or weekly button, it needs to make a first request.
     //so the url will update with the last sunday before the last expense or the first of day of the last expense month
     //for example: if the last expense date is "04-17" the url will be "&week=2025-04-13"(Sunday) or "&month=2025-04"
-    
-    console.log("navButtons")
 
     const sunday = getSunday(currentSunday);
 
     if(props.period == "weekly"){
-      console.log(sunday)
+
       setCurrentSunday(sunday);
       params.set('week', formatDate(sunday));
       router.push(`?${params.toString()}`);
