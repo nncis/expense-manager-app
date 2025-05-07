@@ -2,29 +2,21 @@
 
 import * as d3 from "d3";
 import React, { useEffect, useRef, useState } from 'react';
-import { ExpenseTotalAmountPerMonth, GraphData ,ExpenseByDate, ExpenseAmountByDate } from '@/lib/definitions';
+import { ExpenseTotalAmountPerMonth, GraphData } from '@/lib/definitions';
 import style from '@/styles/resume.module.css';
 import { numberFormatter } from '@/lib/utils';
+import { useSearchParams } from 'next/navigation';
 
-// interface GraphProp {
-//   data: ExpenseTotalAmountPerMonth[];
-// }
-
-interface GraphProp {
-  data: GraphData[];
-  period: string;
-}
-
-// interface GraphData  {
-//   date: string | "";
-//   total: number | 0;
-// }
-
-export default function YearGraph({ data, period } : GraphProp ) {
+export default function YearGraph(props: {period: string}) {
 
   const chartRef = useRef<SVGSVGElement | null>(null);
   const [dimensions, setDimensions] = useState({ width: 326, height: 244 });
+  const [dataExpense, setDataExpense] = useState<GraphData[]>([{date: "", total: 0}]);
   
+  const searchParams = useSearchParams();
+  const week = searchParams.get("week");
+  const month = searchParams.get("month");
+
   useEffect(() => {  
     const handleResize = () => {
       const containerWidth = chartRef.current?.parentElement?.clientWidth || 326;
@@ -37,9 +29,33 @@ export default function YearGraph({ data, period } : GraphProp ) {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  useEffect(() => {
+    if (week) {
+      fetch(`/api/resume/bargraph-weekly?week=${week}`)
+        .then(res => res.json())
+        .then(data => {
+          setDataExpense(data)
+        })
+        .catch(error => {
+          console.error('error fetch bar graph data', error)
+        })
+    } 
+    
+    if (month) {
+      fetch(`/api/resume/bargraph-monthly?month=${month}`)
+        .then(res => res.json())
+        .then(data => {
+          setDataExpense(data)
+        })
+        .catch(error => {
+          console.error('error fetch bar graph data', error)
+        })
+    }
+
+  }, [week, month])
 
   useEffect(() => {
-    if (!chartRef.current || data.length === 0) return;
+    if (!chartRef.current || dataExpense.length === 0) return;
     
     const yearMonths = [
       'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
@@ -62,12 +78,12 @@ export default function YearGraph({ data, period } : GraphProp ) {
 
     //Scales
     const xScale = d3.scaleBand()
-      .domain(period == "monthly" ? yearMonths : daysOfWeek) //change depends if weekly or monthly
+      .domain(props.period == "monthly" ? yearMonths : daysOfWeek) //change depends if weekly or monthly
       .range([margin.left, width - margin.right])
       .padding(0.6);
 
     const yScale = d3.scaleLinear()
-      .domain([0, d3.max(data, d => d.total) || 0]) // Montos en el eje Y
+      .domain([0, d3.max(dataExpense, d => d.total) || 0]) // Montos en el eje Y
       .nice()
       .range([innerHeight - margin.bottom, margin.top]);
 
@@ -96,7 +112,7 @@ export default function YearGraph({ data, period } : GraphProp ) {
       .style("font-weight", "500")
 
     //Max Total
-    const maxValue = d3.max(data, d => d.total) ?? 0;
+    const maxValue = d3.max(dataExpense, d => d.total) ?? 0;
     const formatValue = d3.format(".2s");
 
     svg.append("text")
@@ -136,7 +152,7 @@ export default function YearGraph({ data, period } : GraphProp ) {
 
     // Barras con animación
     svg.selectAll('rect')
-      .data(data)
+      .data(dataExpense)
       .enter()
       .append('rect')
       .attr('x', d => xScale(d.date) || 0) 
@@ -179,7 +195,7 @@ export default function YearGraph({ data, period } : GraphProp ) {
     })
     .on("mouseout", () => tooltip.style("opacity", 0)); 
   
-  }, [data])
+  }, [dataExpense])
 
   return (
     <>

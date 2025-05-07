@@ -4,8 +4,6 @@ import NavigationButtons from '@/components/NavigationButtons';
 import { useState, useEffect } from 'react';
 import NavDateBtnSkeleton from '@/components/skeletons/NavDateBtnSkeleton';
 
-// export default function NavigationDates(props: {period: string, firstAndLastExpenseDates: Date[] | []}){
-
 export default function NavigationDates(props: {period: string | null, onRendered: any}){
 
   const [ firstLastExpenses, setFirstLastExpenses ] = useState([]);

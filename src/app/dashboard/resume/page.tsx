@@ -1,36 +1,20 @@
 'use client'
 
 import style from '@/styles/resume.module.css';
-
-import BarGraph from '@/components/barGraph';
-import { getExpensesByWeek, getExpenseByMonth, getExpenseTotalAmountAnnualy, getExpenseTotalAmountWeekly, getFirstAndLastExpensesDates } from '@/lib/data'; 
+import BarGraph from '@/components/barGraph'
 import PeriodSelectorButtons from '@/ui/resume/PeriodSelectButtons';
 import NavigationDates from '@/ui/resume/NavigationDates';
 import PieGraph from '@/components/pieGraph';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { ExpenseByDate, ExpenseAmountByDate } from '@/lib/definitions';
 
-export default function Resume(
-//   {
-//   searchParams
-// }: {
-//   searchParams: Promise<{
-//     period?: string;
-//     week?: string;
-//     month?: string;
-//   }>
-// }
-){
-  const [dataExpense, setDataExpense] = useState<ExpenseByDate>({category: "", amount: 0, date: new Date()});
+export default function Resume(){
+
   const [ showGraph, setShowGraph ] = useState(false);
 
   const searchParams = useSearchParams();
   const router = useRouter();
-
   const period = searchParams.get("period") || "weekly";
-  const month = searchParams.get("month");
-  const week = searchParams.get("week");
 
   useEffect(() => {
     const params = new URLSearchParams(searchParams);
@@ -38,44 +22,20 @@ export default function Resume(
     router.push(`?${params.toString()}`);
   },[])
   
-    //Get the params of url
-    // const month = (await searchParams).month;
-    // const week = (await searchParams).week;
-
-    // const year: any = month.split("-")[0];
-    // const periodTime = (await searchParams).period || "weekly";
-
-    // //data for pie graph
-    // const pieGraphDataWeekly = await getExpensesByWeek(week);
-    // const pieGraphdataMonthly = await getExpenseByMonth(month);
-
-    // //data for bar graph
-    // const barGraphDataWeekly = await getExpenseTotalAmountWeekly(week); 
-    // const barGraphDateAnnualy = await getExpenseTotalAmountAnnualy("2025");
-    
-
-    // const firstAndLastExpenseDates = await getFirstAndLastExpensesDates();
-
-    //Data for  Graph by years
-
   return(
     <main className={style.dashboardMainPage}>
       <div className={style.title}>
-        <h1>Expenses</h1>
+        <h1>Resume</h1>
       </div>
       <div className={style.periodSelectorContainer}>
         {/* Select periods (monthly or weekly) buttons and navigates through dates  */}
           <PeriodSelectorButtons />
-          {/* <NavigationDates period={periodTime} firstAndLastExpenseDates={firstAndLastExpenseDates}/> */}
-
           <NavigationDates onRendered={() => setShowGraph(true)} period={period}/>
       </div>
       <div className={style.dashboardGraphs}>
 
-        {/* <BarGraph data={week ? barGraphDataWeekly : barGraphDateAnnualy} period={periodTime}/> */}
-        {/* <BarChart selectYears={selectYears} /> */}
-
         {showGraph ? <PieGraph/> : <p>Loading</p>}
+        {showGraph ? <BarGraph period={period}/> : <p>Loading</p>}
         {/* need skeleton */}
       </div>
     </main>

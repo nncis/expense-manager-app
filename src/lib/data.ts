@@ -402,9 +402,9 @@ export async function getExpenseTotalAmountAnnualy(date: string | undefined) {
       FROM "User"
       INNER JOIN expenses ON "User".id = expenses.user_id
       WHERE "User".email = ${user.email}
-        AND EXTRACT(YEAR FROM date) = ${date}
+        AND EXTRACT(YEAR FROM date) = CAST(LEFT(${date}, 4) AS INTEGER)
       GROUP BY TO_CHAR(date, 'Mon'), EXTRACT(MONTH FROM date)
-      ORDER BY EXTRACT(MONTH FROM date);
+      ORDER BY EXTRACT(MONTH FROM date)
     `
     if (!data.rows.length) {
       console.warn('No expenses found for the current year');
