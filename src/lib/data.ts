@@ -352,16 +352,16 @@ export async function getExpenseByMonth(date: string | undefined){
   const convertCentsToDollars = (amountInCents: number) => amountInCents / 100;
 
   try {
-    const data = await sql<ExpenseByDate>`
+    const data = await sql<ExpenseAmountByDate>`
       SELECT
-        category,
-        amount,
-        date
+        expenses.category,
+        SUM(expenses.amount) AS amount
       FROM "User"
       INNER JOIN expenses ON "User".id = expenses.user_id
       WHERE "User".email = ${user.email}
-      AND expenses.date >= (${date} || '-01')::date
-      AND expenses.date < ((${date} || '-01')::date + INTERVAL '1 month')
+        AND expenses.date >= (${date} || '-01')::date
+        AND expenses.date < ((${date} || '-01')::date + INTERVAL '1 month')
+      GROUP BY expenses.category
     `
     if (!data.rows.length) {
       console.warn('No expenses found for the current week');
@@ -373,7 +373,6 @@ export async function getExpenseByMonth(date: string | undefined){
         ...expense,
         amount: convertCentsToDollars(expense.amount),
       }));
-  
       return montExpenses;
     } catch (mappingError) {
       console.error('Error while mapping data:', mappingError);

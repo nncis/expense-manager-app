@@ -278,12 +278,12 @@
 
   .dashboardGraphs  {
     height: 85%;
+    width: 100%;
     min-height: 20rem ;
     overflow: auto;
   }
 
   .periodSelectorContainer {
-    height: 10%;
     width: 100%;
   }
 

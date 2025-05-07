@@ -1,12 +1,12 @@
 'use client'
 
 import style from '@/styles/resume.module.css';
-import PieGraph from '@/components/pieGraph';
+
 import BarGraph from '@/components/barGraph';
 import { getExpensesByWeek, getExpenseByMonth, getExpenseTotalAmountAnnualy, getExpenseTotalAmountWeekly, getFirstAndLastExpensesDates } from '@/lib/data'; 
 import PeriodSelectorButtons from '@/ui/resume/PeriodSelectButtons';
 import NavigationDates from '@/ui/resume/NavigationDates';
-import TestGraph from '@/components/tesGraph';
+import PieGraph from '@/components/pieGraph';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { ExpenseByDate, ExpenseAmountByDate } from '@/lib/definitions';
@@ -71,14 +71,11 @@ export default function Resume(
           <NavigationDates onRendered={() => setShowGraph(true)} period={period}/>
       </div>
       <div className={style.dashboardGraphs}>
-        
-        {/* <PieGraph data={week ? pieGraphDataWeekly : pieGraphdataMonthly} />
-        <BarGraph data={week ? barGraphDataWeekly : barGraphDateAnnualy} period={periodTime}/> */}
 
-        {/* <PieChart /> */}
+        {/* <BarGraph data={week ? barGraphDataWeekly : barGraphDateAnnualy} period={periodTime}/> */}
         {/* <BarChart selectYears={selectYears} /> */}
 
-        {showGraph ? <TestGraph/> : <p>Loading</p> }
+        {showGraph ? <PieGraph/> : <p>Loading</p>}
         {/* need skeleton */}
       </div>
     </main>

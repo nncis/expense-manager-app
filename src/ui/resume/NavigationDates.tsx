@@ -12,17 +12,16 @@ export default function NavigationDates(props: {period: string | null, onRendere
   const [ dataLoaded, setDataLoaded ] = useState(false);
 
   useEffect(() => {
-    console.log("onrendered")
     fetch('/api/first-last-expenses')
     .then(res => res.json())
       .then(data => {
         setFirstLastExpenses(data)
         setDataLoaded(true);
+        props.onRendered();
       })
       .catch(error => {
         console.error('error fetch first and last expenses dates', error)
       })
-      props.onRendered();
   }, [])
 
   if(!dataLoaded){
