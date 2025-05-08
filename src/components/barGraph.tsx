@@ -7,7 +7,7 @@ import style from '@/styles/resume.module.css';
 import { numberFormatter } from '@/lib/utils';
 import { useSearchParams } from 'next/navigation';
 
-export default function YearGraph(props: {period: string}) {
+export default function YearGraph() {
 
   const chartRef = useRef<SVGSVGElement | null>(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 60 });
@@ -17,6 +17,7 @@ export default function YearGraph(props: {period: string}) {
   const searchParams = useSearchParams();
   const week = searchParams.get("week");
   const month = searchParams.get("month");
+  const period = searchParams.get("period") || "weekly";
   
   useEffect(() => {  
     const handleResize = () => {
@@ -89,7 +90,7 @@ export default function YearGraph(props: {period: string}) {
 
     //Scales
     const xScale = d3.scaleBand()
-      .domain(props.period == "monthly" ? yearMonths : daysOfWeek) //change depends if weekly or monthly
+      .domain(period == "monthly" ? yearMonths : daysOfWeek) //change depends if weekly or monthly
       .range([margin.left, width - margin.right])
       .padding(0.6);
 
@@ -119,7 +120,7 @@ export default function YearGraph(props: {period: string}) {
        .attr("stroke", "none");
 
     svg.selectAll(".x-axis text")
-      .style("font-size", `${props.period == "monthly" && isMobile ? '1.2rem' : '1.5rem'}`)
+      .style("font-size", `${period == "monthly" && isMobile ? '1.2rem' : '1.5rem'}`)
       .style("font-family", "Josefin Sans")
       .style("font-weight", "500")
 

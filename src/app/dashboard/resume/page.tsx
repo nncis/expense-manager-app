@@ -42,7 +42,7 @@ export default function Resume(){
           <PieGraph></PieGraph>
         </Suspense>
         <Suspense fallback={<p>Loading...</p>}>
-          <BarGraph period={period}></BarGraph>
+          <BarGraph></BarGraph>
         </Suspense>
 
         {/* {showGraph ? <PieGraph/> : <p>Loading</p>} */}
