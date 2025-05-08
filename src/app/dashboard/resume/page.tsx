@@ -19,8 +19,6 @@ export default function Resume(){
   const router = useRouter();
   const period = searchParams.get("period") || "weekly";
 
-
-
   useEffect(() => {
     const params = new URLSearchParams(searchParams);
     params.set('period', 'weekly');
@@ -38,15 +36,8 @@ export default function Resume(){
           <NavigationDates onRendered={() => setShowGraph(true)} period={period}/>
       </div>
       <div className={style.dashboardGraphs}>
-        <Suspense fallback={<p>Loading...</p>}>
-          <PieGraph></PieGraph>
-        </Suspense>
-        <Suspense fallback={<p>Loading...</p>}>
-          <BarGraph></BarGraph>
-        </Suspense>
-
-        {/* {showGraph ? <PieGraph/> : <p>Loading</p>} */}
-        {/* {showGraph ? <BarGraph period={period}/> : <p>Loading</p>} */}
+        {showGraph ? <PieGraph/> : <p>Loading</p>}
+        {showGraph ? <BarGraph/> : <p>Loading</p>}
         {/* need skeleton */}
       </div>
     </main>

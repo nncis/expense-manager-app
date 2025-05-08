@@ -8,7 +8,7 @@ export default function NavigationDates(props: {period: string | null, onRendere
 
   const [ firstLastExpenses, setFirstLastExpenses ] = useState([]);
   const [ dataLoaded, setDataLoaded ] = useState(false);
-
+  
   useEffect(() => {
     fetch('/api/first-last-expenses')
     .then(res => res.json())
