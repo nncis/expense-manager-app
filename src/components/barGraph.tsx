@@ -1,7 +1,7 @@
 'use client'
 
 import * as d3 from "d3";
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, Suspense } from 'react';
 import { ExpenseTotalAmountPerMonth, GraphData } from '@/lib/definitions';
 import style from '@/styles/resume.module.css';
 import { numberFormatter } from '@/lib/utils';
@@ -10,13 +10,14 @@ import { useSearchParams } from 'next/navigation';
 export default function YearGraph(props: {period: string}) {
 
   const chartRef = useRef<SVGSVGElement | null>(null);
-  const [dimensions, setDimensions] = useState({ width: 326, height: 244 });
-  const [dataExpense, setDataExpense] = useState<GraphData[]>([{date: "", total: 0}]);
+  const [dimensions, setDimensions] = useState({ width: 0, height: 60 });
+  const [dataExpense, setDataExpense] = useState<GraphData[]>([]);
+  const [isMobile, setIsMobile ] = useState(false);
   
   const searchParams = useSearchParams();
   const week = searchParams.get("week");
   const month = searchParams.get("month");
-
+  
   useEffect(() => {  
     const handleResize = () => {
       const containerWidth = chartRef.current?.parentElement?.clientWidth || 326;
@@ -72,6 +73,16 @@ export default function YearGraph(props: {period: string}) {
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
 
+    if(width < 450){
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+    //si es month y mobile 1.1rem //
+    // const fontSizeMonthMobile = props.period == "month" ? '1.1rem'
+    const fontSizeMobile =  isMobile ? '1.1rem' : '1.5rem';
+
+
     //Select and clean the SVG
     const svg = d3.select(chartRef.current);
     svg.selectAll("*").remove();
@@ -108,7 +119,8 @@ export default function YearGraph(props: {period: string}) {
        .attr("stroke", "none");
 
     svg.selectAll(".x-axis text")
-      .style("font-size", "1.3rem")
+      .style("font-size", `${props.period == "monthly" && isMobile ? '1.2rem' : '1.5rem'}`)
+      .style("font-family", "Josefin Sans")
       .style("font-weight", "500")
 
     //Max Total
@@ -119,7 +131,7 @@ export default function YearGraph(props: {period: string}) {
       .attr("x", margin.right)
       .attr("y", margin.top + 20)
       .text(formatValue(maxValue))
-      .attr("font-size", "1.3rem")
+      .attr("font-size", "1.5rem")
       .attr("fill", "black");
 
 
@@ -196,6 +208,7 @@ export default function YearGraph(props: {period: string}) {
     .on("mouseout", () => tooltip.style("opacity", 0)); 
   
   }, [dataExpense])
+
 
   return (
     <>

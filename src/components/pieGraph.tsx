@@ -11,6 +11,8 @@ export default function PieGraph() {
   const chartRef = useRef<SVGSVGElement | null>(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [dataExpense, setDataExpense] = useState<ExpenseAmountByDate[]>([{category: "", amount: 0}]);
+  const [isMobile, setIsMobile ] = useState(false);
+
   const searchParams = useSearchParams();
   const week = searchParams.get("week");
   const month = searchParams.get("month");
@@ -18,6 +20,7 @@ export default function PieGraph() {
   useEffect(() => {
 
     const handleResize = () => {
+      // console.log(chartRef)
       const containerWidth = chartRef.current?.parentElement?.clientWidth || 326;
       setDimensions({ width: containerWidth, height: containerWidth * 0.75 });
     };
@@ -63,7 +66,19 @@ export default function PieGraph() {
     const innerHeight = height - margin.top - margin.bottom;
     const radius = Math.min(width, height) / 5;
     const color = d3.scaleOrdinal(d3.schemePastel1);
-    const dataLength = dataExpense.length > 6 ? dataExpense.length + 2.5 : dataExpense.length > 6 && height < 266 ? dataExpense.length : dataExpense.length;
+    const dataLength = dataExpense.length;
+
+    if(width < 450){
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+
+    const fontSizeDesk = dataLength > 6 ? '1.3rem' : '1.5rem';
+    const fontSizeMobile = dataLength > 6 ? '1.5rem' : '1.5rem';
+
+    const circleDesk = dataLength > 6 ? 6 : 7;
+    const circleMobile = dataLength > 6 ? 5 : 6;
 
     //Clean SVG
     svg.selectAll("*").remove();
@@ -148,12 +163,12 @@ export default function PieGraph() {
       .enter()
       .append('g')
       .attr('class', 'legend-item')
-      .attr('transform', (_, i) => `translate(0, ${i * 25})`);
+      .attr('transform', (_, i) => `translate(0, ${dataLength > 6 ? i * 20 : i * 25})`);
 
     //draw legend
     legendItems
       .append('circle')
-      .attr('r', 7)
+      .attr('r', `${isMobile ? circleMobile : circleDesk}`)
       .attr('stroke', 'black')
       .attr('stroke-width', 1.5)
       .attr('fill', d => color(d.category.toString()));
@@ -163,7 +178,7 @@ export default function PieGraph() {
       .attr('x', 12)
       .attr('y', 2)
       .text(d => d.category)
-      .style('font-size', '1.5rem')
+      .style('font-size', `${isMobile ? fontSizeMobile : fontSizeDesk}`)
       .style('alignment-baseline', 'middle');
 
       legendItems
@@ -171,7 +186,7 @@ export default function PieGraph() {
       .attr('x', `${innerWidth / 3}`)
       .attr('y', 4)
       .text(d => `$${numberFormatter(d.amount)}`)
-      .style('font-size', '1.4rem')
+      .style('font-size', `${isMobile ? fontSizeMobile : fontSizeDesk}`)
       .style('alignment-baseline', 'middle');
 
     // return () => {
