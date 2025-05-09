@@ -39,10 +39,10 @@ export default function PeriodNavigationButton(props: {period: string | null, fi
   },[props.period])
 
   const getSunday = (date: Date) => {
-    const d = new Date(date);
-    const day = d.getDay();
-    d.setDate(d.getDate() - day);
-    return d;
+  const localDate = new Date(date.getFullYear(), date.getMonth(), date.getDate()); // hora local, sin hora
+  const day = localDate.getDay();
+  localDate.setDate(localDate.getDate() - day);
+  return localDate;
   };
 
   const formatDate = (date: Date) => {
