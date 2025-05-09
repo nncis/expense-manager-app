@@ -23,8 +23,10 @@ export default function PeriodNavigationButton(props: {period: string | null, fi
     //for example: if the last expense date is "04-17" the url will be "&week=2025-04-13"(Sunday) or "&month=2025-04"
 
     const sunday = getSunday(lastExpense);
+    setCurrentSunday(sunday);
+
+
     if(props.period == "weekly"){
-      setCurrentSunday(sunday);
       params.set('week', formatDate(sunday));
       router.push(`?${params.toString()}`);
     } else if(props.period == "monthly"){
@@ -131,9 +133,9 @@ export default function PeriodNavigationButton(props: {period: string | null, fi
             <ChevronLeftIcon className={style.arrowBtn}/>
           </button> 
           {
-            lastExpense ? 
-            <p>{formatDate(currentSunday)}</p> :
-            <p>Not Data Yet</p>
+
+            <p>{formatDate(currentSunday)}</p>
+
           }
           <button onClick={nextWeek} disabled={getSunday(currentSunday) >= getSunday(lastExpense) || !lastExpense}>
             <ChevronRightIcon className={style.arrowBtn}/>
