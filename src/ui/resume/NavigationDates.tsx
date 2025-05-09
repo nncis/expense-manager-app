@@ -28,11 +28,8 @@ export default function NavigationDates(props: {period: string | null, onRendere
 
   return (
     <>
-      {/* Navigate through weeks periods, starting by the last Sunday to the next Saturday or the last data in db */}
-       {props.period == "monthly" 
-        ? <NavigationButtons period={props.period} firstAndLastExpenseDates={firstLastExpenses}/> 
-        : <NavigationButtons period={props.period} firstAndLastExpenseDates={firstLastExpenses}/>
-        }
+      {/* Navigate through weeks periods, starting by the last Sunday to the next Saturday of the last data in db */}   
+        <NavigationButtons period={props.period} firstAndLastExpenseDates={firstLastExpenses}/> 
     </>
   )
 }

@@ -22,10 +22,8 @@ export default function PeriodNavigationButton(props: {period: string | null, fi
     //so the url will update with the last sunday before the last expense or the first of day of the last expense month
     //for example: if the last expense date is "04-17" the url will be "&week=2025-04-13"(Sunday) or "&month=2025-04"
 
-    const sunday = getSunday(currentSunday);
-
+    const sunday = getSunday(lastExpense);
     if(props.period == "weekly"){
-
       setCurrentSunday(sunday);
       params.set('week', formatDate(sunday));
       router.push(`?${params.toString()}`);
@@ -36,7 +34,7 @@ export default function PeriodNavigationButton(props: {period: string | null, fi
     }
 
   },[props.period])
-  
+
   const getSunday = (date: Date) => {
     const d = new Date(date);
     const day = d.getDay();

@@ -18,9 +18,9 @@ export default function Resume(){
   const searchParams = useSearchParams();
   const router = useRouter();
   const period = searchParams.get("period") || "weekly";
+  const params = new URLSearchParams(searchParams);
 
   useEffect(() => {
-    const params = new URLSearchParams(searchParams);
     params.set('period', 'weekly');
     router.push(`?${params.toString()}`);
   },[])
