@@ -17,14 +17,14 @@ export default function SideNav() {
       >
       {/* <div className={style.blankSpace}>
       </div> */}
-        {/* <button 
+        <button 
           className={style.signOut}
           onClick={()=> signOut({callbackUrl: '/'})}
           type='button'
           >
           <PowerIcon width={30}/>
           <p>Sign Out</p>
-        </button> */}
+        </button>
       </div>
     </div>
   )
