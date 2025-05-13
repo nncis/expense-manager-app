@@ -38,8 +38,6 @@ export default function Resume(){
           <NavigationDates onRendered={() => setShowGraph(true)} period={period}/>
       </div>
       <div className={style.dashboardGraphs}>
-        {/* <PieGraphSkeleton />
-        <BarGraphSkeleton /> */}
         {showGraph ? <PieGraph/> : <PieGraphSkeleton />}
         {showGraph ? <BarGraph/> : <BarGraphSkeleton />}
       </div>
