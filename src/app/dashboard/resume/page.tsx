@@ -3,8 +3,6 @@
 import style from '@/styles/resume.module.css';
 import PeriodSelectorButtons from '@/ui/resume/PeriodSelectButtons';
 import NavigationDates from '@/ui/resume/NavigationDates';
-// import BarGraph from '../../../components/barGraph'
-// import PieGraph from '@/components/pieGraph';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useEffect, useState, lazy } from 'react';
 import PieGraphSkeleton from '@/components/skeletons/PieGraphSkeleton';
