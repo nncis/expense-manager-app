@@ -6,7 +6,9 @@ import NavigationDates from '@/ui/resume/NavigationDates';
 // import BarGraph from '../../../components/barGraph'
 // import PieGraph from '@/components/pieGraph';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { useEffect, useState, Suspense, lazy } from 'react';
+import { useEffect, useState, lazy } from 'react';
+import PieGraphSkeleton from '@/components/skeletons/PieGraphSkeleton';
+import BarGraphSkeleton from '@/components/skeletons/BarGraphSkeleton'; 
 
 const BarGraph = lazy(() => import('@/components/barGraph'));
 const PieGraph = lazy(() => import('@/components/pieGraph'));
@@ -36,9 +38,10 @@ export default function Resume(){
           <NavigationDates onRendered={() => setShowGraph(true)} period={period}/>
       </div>
       <div className={style.dashboardGraphs}>
-        {showGraph ? <PieGraph/> : <p>Loading</p>}
-        {showGraph ? <BarGraph/> : <p>Loading</p>}
-        {/* need skeleton */}
+        {/* <PieGraphSkeleton />
+        <BarGraphSkeleton /> */}
+        {showGraph ? <PieGraph/> : <PieGraphSkeleton />}
+        {showGraph ? <BarGraph/> : <BarGraphSkeleton />}
       </div>
     </main>
   )

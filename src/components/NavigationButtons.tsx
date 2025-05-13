@@ -24,8 +24,6 @@ export default function PeriodNavigationButton(props: {period: string | null, fi
 
     const sunday = getSunday(lastExpense);
     setCurrentSunday(sunday);
-    console.log(sunday)
-
 
     if(props.period == "weekly"){
       params.set('week', formatDate(sunday));
