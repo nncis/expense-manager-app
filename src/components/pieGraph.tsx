@@ -6,14 +6,12 @@ import { ExpenseAmountByDate } from '@/lib/definitions';
 import { numberFormatter } from '@/lib/utils';
 import style from '@/styles/resume.module.css';
 import { useSearchParams } from 'next/navigation';
-import PieGraphSkeleton from "./skeletons/PieGraphSkeleton";
 
 export default function PieGraph() {
   const chartRef = useRef<SVGSVGElement | null>(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [dataExpense, setDataExpense] = useState<ExpenseAmountByDate[]>([]);
   const [isMobile, setIsMobile ] = useState(false);
-  const [showGraph, setShowGraph] = useState(false);
 
   const searchParams = useSearchParams();
   const week = searchParams.get("week");
@@ -40,7 +38,6 @@ export default function PieGraph() {
         .then(res => res.json())
         .then(data => {
           setDataExpense(data)
-          setShowGraph(true)
         })
         .catch(error => {
           console.error('error fetch pie graph data', error)
@@ -199,7 +196,7 @@ export default function PieGraph() {
   return (
     <> 
       <div className={style.SVGpieGraphContainer}>
-        {showGraph ? <svg className={style.SVGpieChart} ref={chartRef}></svg> : <PieGraphSkeleton />}
+        <svg className={style.SVGpieChart} ref={chartRef}></svg>
       </div> 
     </>
  
