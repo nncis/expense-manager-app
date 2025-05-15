@@ -8,7 +8,6 @@ import { useEffect, useState, lazy } from 'react';
 import PieGraphSkeleton from '@/components/skeletons/PieGraphSkeleton';
 import BarGraphSkeleton from '@/components/skeletons/BarGraphSkeleton';
 import TitleSkeleton from '@/components/skeletons/TitleSkeleton';
-import NavDateBtnSkeleton from '@/components/skeletons/NavDateBtnSkeleton';
 import PeriodSelectorSkeleton from '@/components/skeletons/PeriodSelectorSkeleton';
 
 const BarGraph = lazy(() => import('@/components/barGraph'));
@@ -30,14 +29,10 @@ export default function Resume(){
 
   return(
     <main className={style.resumeMainContainer}>
-      {
-      showGraph ? 
-      <div className={style.title}><h1>Resume</h1></div> : 
-      <TitleSkeleton/>}
+      {showGraph ? <div className={style.title}><h1>Resume</h1></div> : <TitleSkeleton/>}
       <div className={style.periodSelectorContainer}>
-        {/* Select periods (monthly or weekly) buttons and navigates through dates  */}
         {showGraph ? <PeriodSelectorButtons /> : <PeriodSelectorSkeleton />}
-          <NavigationDates onRendered={() => setShowGraph(true)} period={period}/>
+        <NavigationDates onRendered={() => setShowGraph(true)} period={period}/>
       </div>
       <div className={style.graphsContainer}>
         {showGraph ? <PieGraph/> : <PieGraphSkeleton />}
