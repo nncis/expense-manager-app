@@ -1,0 +1,146 @@
+.resumeMainContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 5rem;
+  width: 100%;
+  height: 100%;
+}
+
+@media (min-height: 640px){
+  .resumeMainContainer {
+    height: 90%;
+  }
+}
+
+.title {
+  width: 20rem;
+  height: 10%;
+}
+
+@media (max-width: 700px) {
+  .resumeMainContainer {
+    padding: 0;
+    align-items: center;
+  }
+
+  .title {
+    height: 5%;
+    width: 50%;
+    margin: 0;
+  }
+}
+
+/* PERIOD BUTTONS */
+
+.periodButtonsContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 10%;
+}
+
+.periodSelectorButtons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.periodBtn {
+  height: 3rem;
+  width: 15rem;
+  margin: 1rem;
+}
+
+.navBtn {
+  width: 25rem;
+  min-width: 25rem;
+  height: 4rem;
+  margin: 1rem;
+}
+
+@media (max-width: 700px) {
+  .periodButtonsContainer {
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 15%;
+    margin: 0;
+  }
+
+  .periodSelectorButtons {
+    justify-content: space-between;
+    width: 100%;
+    height: 50%;
+    margin: 0;
+  }
+
+  .periodBtn {
+    height: 4rem;
+    width: 48%;
+    margin: 0;
+  }
+
+  .navBtn {
+    height: 4rem;
+    width: 100%;
+    margin: 0;
+  }
+
+}
+
+/* GRAPHS */
+
+.graphsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  margin-top: 1rem;
+  height: 80%;
+}
+
+@media (max-width: 1200px){
+ .graphsContainer {
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: unset;
+    overflow: auto;
+  }
+}
+
+@media (max-width: 700px){
+  .graphsContainer {
+    height: 85%;
+    width: 100%;
+    min-height: 20rem;
+  }
+}
+
+/* SKELETONS */
+
+.skeleton {
+  background-color: #e2e2e2;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.87), transparent);
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    left: 100%;
+  }
+}

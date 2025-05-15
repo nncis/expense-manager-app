@@ -6,7 +6,10 @@ import NavigationDates from '@/ui/resume/NavigationDates';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useEffect, useState, lazy } from 'react';
 import PieGraphSkeleton from '@/components/skeletons/PieGraphSkeleton';
-import BarGraphSkeleton from '@/components/skeletons/BarGraphSkeleton'; 
+import BarGraphSkeleton from '@/components/skeletons/BarGraphSkeleton';
+import TitleSkeleton from '@/components/skeletons/TitleSkeleton';
+import NavDateBtnSkeleton from '@/components/skeletons/NavDateBtnSkeleton';
+import PeriodSelectorSkeleton from '@/components/skeletons/PeriodSelectorSkeleton';
 
 const BarGraph = lazy(() => import('@/components/barGraph'));
 const PieGraph = lazy(() => import('@/components/pieGraph'));
@@ -26,16 +29,17 @@ export default function Resume(){
   },[])
 
   return(
-    <main className={style.dashboardMainPage}>
-      <div className={style.title}>
-        <h1>Resume</h1>
-      </div>
+    <main className={style.resumeMainContainer}>
+      {
+      showGraph ? 
+      <div className={style.title}><h1>Resume</h1></div> : 
+      <TitleSkeleton/>}
       <div className={style.periodSelectorContainer}>
         {/* Select periods (monthly or weekly) buttons and navigates through dates  */}
-          <PeriodSelectorButtons />
+        {showGraph ? <PeriodSelectorButtons /> : <PeriodSelectorSkeleton />}
           <NavigationDates onRendered={() => setShowGraph(true)} period={period}/>
       </div>
-      <div className={style.dashboardGraphs}>
+      <div className={style.graphsContainer}>
         {showGraph ? <PieGraph/> : <PieGraphSkeleton />}
         {showGraph ? <BarGraph/> : <BarGraphSkeleton />}
       </div>

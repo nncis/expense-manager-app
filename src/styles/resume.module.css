@@ -1,26 +1,21 @@
-.dashboardMainPage {
+.resumeMainContainer {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  justify-content: space-evenly;
+  padding: 5rem;
+  /* justify-content: center;
+  align-items: center; */
+  /* justify-content: space-evenly; */
   width: 100%;
   height: 100%;
-  position: relative;
-}
-
-@media (min-height: 640px){
-  .dashboardMainPage {
-    height: 90%;
-  }
 }
 
 .title {
-  position: absolute;
-  top: 30px;
-  left: 100px; 
-  font-style: italic;
-  font-weight: 500;
+  display: flex;
+  align-items: center;
+  width: 20rem;
+  height: 10%;
+  padding: 1rem;
+  
 }
 
 .title h1 {
@@ -28,23 +23,37 @@
   font-weight: 500;
 }
 
-@media (max-width: 700px) {
-  .title {
-    position: relative;
-    top: auto;
-    left: auto;
+@media (min-height: 640px){
+  .resumeMainContainer {
+    height: 90%;
   }
 }
 
+@media (max-width: 700px) {
+  .resumeMainContainer {
+    padding: 0;
+    align-items: center;
+  }
+
+  .title {
+    height: 5%;
+    width: 50%;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+  }
+}
+
+/* DATE SELECTOR */
+
 .periodSelectorContainer {
   display: flex;
-  flex-direction: column;
-  align-content: center;
-  justify-content: center;
+  flex-direction: row;
   align-items: center;
-  margin: 1rem 0
-
+  height: 10%;
 }
+
+/* NAV BUTTONS */
 
 .periodNavButtons {
   display: flex;
@@ -53,9 +62,10 @@
   justify-content: space-between;
   background-color: var(--background-component);
   border: 2px solid black;
-  border-radius: 10px;
-  width: 22rem;
+  border-radius: 5px;
+  width: 30rem;
   height: 4rem;
+  margin: 1rem;
 }
 
 .periodNavButtons button:first-of-type {
@@ -76,17 +86,29 @@
   height: 100%;
 }
 
-@media (max-width: 700px){
-  .periodNavButtons {
-    width: 100%;
-  }
-}
-
-
 .arrowBtn{
   width: 3rem;
   height: 3rem;
 }
+
+@media (max-width: 700px){
+  .periodSelectorContainer {
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 15%;
+    
+  }
+
+  .periodNavButtons {
+    width: 100%;
+    margin: 0;
+  }
+
+}
+
+/* PERIOD SELECTOR */
 
 .periodButtonsContainer {
   display: flex;
@@ -94,7 +116,7 @@
 }
 
 .periodButton {
-  width: 10rem;
+  width: 15rem;
   height: 4rem;
   cursor: pointer;
   margin: 1rem;
@@ -113,29 +135,46 @@
     width: 100%;
     justify-content: space-between;
   }
+  
   .periodButton {
     width: 48%;
     margin: 0;
-    margin-bottom: 1rem;
-
   }
 
 }
 
+/* GRAPHS */
 
+.graphsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  margin-top: 1rem;
+  height: 80%;
+}
+
+@media (max-width: 1200px){
+ .graphsContainer {
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: unset;
+    overflow: auto;
+  }
+}
+
+@media (max-width: 700px){
+  .graphsContainer {
+    height: 80%;
+    width: 100%;
+    min-height: 20rem;
+    margin: 0;
+  }
+}
 
 /* BAR CHART */
-/* .expenseBarChart {
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
-  background-color: var(--background-component);
-  border-radius: 10px;
-  border: 2px solid var(--stroke-2);
-  width: 40rem;
-  height: 30rem;
-  margin: 1rem 0;
-} */
 
 .SVGbarChartContainer {
   width: 50rem; 
@@ -143,7 +182,7 @@
   background-color: var(--foreground);
   border: 2px solid var(--stroke-2);
   border-radius: 10px;
-  margin: 1rem;
+  margin: 0.5rem;
   position: relative;
 }
 
@@ -152,30 +191,15 @@
   height: 100%; 
 }
 
-.selectYear {
-  border: none;
-  background-color: var(--background-component);
-}
-
 @media (max-width: 700px) {
   .SVGbarChartContainer {
     width: 100%;
-    margin: 1rem 0 0 0;
+    margin: 0.5rem 0;
   }
 }
 
 
 /* PIE CHART */
-/* .expensePieChart{
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
-  background-color: var(--background-component);
-  border-radius: 10px;
-  width: 40rem;
-  height: 30rem;
-  margin: 1rem 0;
-} */
 
 .SVGpieGraphContainer {
   width: 50rem; 
@@ -183,7 +207,7 @@
   background-color: var(--foreground);
   border: 2px solid var(--stroke-2);
   border-radius: 10px;
-  margin: 1rem;
+  margin: 0.5rem;
 }
 
 .SVGpieChart {
@@ -199,7 +223,7 @@
 @media (max-width: 700px) {
   .SVGpieGraphContainer {
     width: 100%;
-    margin: 0 0 0.5rem 0;
+    margin: 0.5rem 0;
   }
 }
 
@@ -211,21 +235,6 @@
   height: 4rem;
   background-color: var(--background-component);
 }
-
-.selectChart select {
-  width: 10rem;
-  padding-top: 5px;
-  outline: none; 
-  color: var(--font-color-4);
-  font-size: 1.6rem;
-}
-
-.calendarIcon {
-  width: 2.8rem;
-  color: var(--font-color-4);
-  margin-right: 5px;
-}
-
 
 .totalAmountBox {
   display: flex;
@@ -261,7 +270,7 @@
 
 
 @media (max-width: 700px) {
-  .dashboardMainPage {
+  .resumeMainContainer {
     box-sizing: border-box;
   }
 
@@ -276,12 +285,6 @@
 
 @media (max-width: 700px){
 
-  .dashboardGraphs  {
-    height: 85%;
-    width: 100%;
-    min-height: 20rem ;
-    overflow: auto;
-  }
 
   .periodSelectorContainer {
     width: 100%;
