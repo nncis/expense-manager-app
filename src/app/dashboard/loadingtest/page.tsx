@@ -9,7 +9,9 @@ import PeriodSelectorSkeleton from '@/components/skeletons/PeriodSelectorSkeleto
 export default function Loading(){
   return(
     <div className={style.resumeMainContainer}>
-      <TitleSkeleton />
+      <div className={style.titleContainer}>
+        <TitleSkeleton />
+      </div>
       <div className={`${style.periodButtonsContainer}`}>
         <PeriodSelectorSkeleton />
         <NavDateBtnSkeleton />

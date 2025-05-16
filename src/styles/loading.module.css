@@ -6,16 +6,23 @@
   height: 100%;
 }
 
-@media (min-height: 640px){
+.titleContainer {
+  width: 20rem;
+  height: 10%;
+  padding: 1rem 1rem 1rem 0;
+}
+
+.title {
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-height: 670px){
   .resumeMainContainer {
     height: 90%;
   }
 }
 
-.title {
-  width: 20rem;
-  height: 10%;
-}
 
 @media (max-width: 700px) {
   .resumeMainContainer {
@@ -23,10 +30,10 @@
     align-items: center;
   }
 
-  .title {
+  .titleContainer {
     height: 5%;
     width: 50%;
-    margin: 0;
+    padding: 0;
   }
 }
 
@@ -46,17 +53,21 @@
 }
 
 .periodBtn {
-  height: 3rem;
+  height: 4rem;
   width: 15rem;
   margin: 1rem;
 }
 
+.periodBtn:first-of-type {
+  margin-left: 0;
+}
+
 .navBtn {
-  width: 25rem;
-  min-width: 25rem;
+  width: 30rem;
   height: 4rem;
   margin: 1rem;
 }
+
 
 @media (max-width: 700px) {
   .periodButtonsContainer {
@@ -71,7 +82,6 @@
   .periodSelectorButtons {
     justify-content: space-between;
     width: 100%;
-    height: 50%;
     margin: 0;
   }
 
@@ -98,7 +108,6 @@
   justify-content: center;
   align-items: center;
   align-content: center;
-  margin-top: 1rem;
   height: 80%;
 }
 
@@ -113,7 +122,7 @@
 
 @media (max-width: 700px){
   .graphsContainer {
-    height: 85%;
+    height: 80%;
     width: 100%;
     min-height: 20rem;
   }

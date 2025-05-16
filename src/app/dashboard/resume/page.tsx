@@ -29,7 +29,9 @@ export default function Resume(){
 
   return(
     <main className={style.resumeMainContainer}>
-      {showGraph ? <div className={style.title}><h1>Resume</h1></div> : <TitleSkeleton/>}
+      <div className={style.titleContainer}>
+       {showGraph ? <h1 className={style.title}>Resume</h1> : <TitleSkeleton/>} 
+      </div>
       <div className={style.periodSelectorContainer}>
         {showGraph ? <PeriodSelectorButtons /> : <PeriodSelectorSkeleton />}
         <NavigationDates onRendered={() => setShowGraph(true)} period={period}/>

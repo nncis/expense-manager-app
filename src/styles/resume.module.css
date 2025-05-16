@@ -6,20 +6,18 @@
   height: 100%;
 }
 
-.title {
+.titleContainer{
   display: flex;
   align-items: center;
-  width: 20rem;
   height: 10%;
+  width: 20rem;
   padding: 1rem;
-  
 }
 
-.title h1 {
+.title {
   font-style: italic;
   font-weight: 500;
 }
-
 
 
 @media (max-width: 700px) {
@@ -29,7 +27,7 @@
     height: 100%;
   }
 
-  .title {
+  .titleContainer {
     height: 5%;
     width: 50%;
     margin: 0;
@@ -124,6 +122,10 @@
   border-radius: 5px;
 }
 
+.periodButton:first-of-type {
+  margin-left: 0;
+}
+
 .periodButtonActive {
   background-color: var(--active-button-2);
   pointer-events: none;
@@ -152,7 +154,7 @@
   justify-content: center;
   align-items: center;
   align-content: center;
-  margin-top: 1rem;
+  /* margin-top: 1rem; */
   height: 80%;
 }
 
@@ -197,7 +199,6 @@
     margin: 0.5rem 0;
   }
 }
-
 
 /* PIE CHART */
 
@@ -268,7 +269,6 @@
   border-radius: 10px;
 }
 
-
 @media (max-width: 700px) {
   .resumeMainContainer {
     box-sizing: border-box;
@@ -289,9 +289,5 @@
   .periodSelectorContainer {
     width: 100%;
   }
-
- .title {
-   height: 5%;
- }
 
 }
