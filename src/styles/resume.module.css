@@ -154,7 +154,6 @@
   flex-direction: column;
   align-content: center;
   align-items: center;
- 
   /* margin-top: 1rem; */
   overflow: auto;
   height: 80%;
@@ -164,7 +163,7 @@
  .graphsContainer {
     flex-wrap: nowrap;
     flex-direction: column-reverse;
-    justify-content: unset;
+    
   }
 }
 
@@ -172,7 +171,6 @@
   .graphsContainer {
     height: 80%;
     width: 100%;
-    min-height: 20rem;
     margin: 0;
   }
 }
