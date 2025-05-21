@@ -25,6 +25,7 @@
     padding: 0;
     align-items: center;
     height: 100%;
+    padding: 1rem 0;
   }
 
   .titleContainer {
@@ -150,10 +151,10 @@
 .graphsContainer {
   display: flex;
   flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
   align-content: center;
+  align-items: center;
+ 
   /* margin-top: 1rem; */
   height: 80%;
 }
@@ -161,7 +162,7 @@
 @media (max-width: 1200px){
  .graphsContainer {
     flex-wrap: nowrap;
-    flex-direction: column;
+    flex-direction: column-reverse;
     justify-content: unset;
     overflow: auto;
   }
@@ -184,8 +185,9 @@
   background-color: var(--foreground);
   border: 2px solid var(--stroke-2);
   border-radius: 10px;
-  margin: 0.5rem;
+  margin: 1rem;
   position: relative;
+  flex-shrink: 0;
 }
 
 .SVGbarChart {
@@ -208,7 +210,8 @@
   background-color: var(--foreground);
   border: 2px solid var(--stroke-2);
   border-radius: 10px;
-  margin: 0.5rem;
+  margin: 1rem;
+  flex-shrink: 0;
 }
 
 .SVGpieChart {
@@ -228,66 +231,83 @@
   }
 }
 
-.selectChart {
+/* TOTAL AMOUNT COMPONENT */
+
+.totalAmountContainer {
   display: flex;
-  justify-content: flex-start;
-  padding-top: 1rem;
-  width: 100%;
-  height: 4rem;
-  background-color: var(--background-component);
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  justify-content: space-around;
+  width: 35rem; 
+  height: 15rem;
+  margin: 1rem;
+  background-color: var(--foreground);
+  border: 2px solid var(--stroke-2);
+  border-radius: 10px;
+  flex-shrink: 0;
 }
 
-.totalAmountBox {
+.amountContainer {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  height: 10rem;
-  width: 15rem;
+  justify-content: center;
+  width: 50%;
+  height: 100%;
   padding: 1rem;
-  background-color: var(--background-component);
-  border-radius: 10px;
 }
-
-.totalAmountBox h4 {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 30%;
-  width: 100%;
-  font-size: 2rem;
-}
-
-.totalAmountBox p {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--foreground);
-  height: 70%;
-  width: 100%;
-  font-size: 3rem;
-  border-radius: 10px;
-}
-
-@media (max-width: 700px) {
-  .resumeMainContainer {
-    box-sizing: border-box;
-  }
-
-  .totalAmountBox, .totalAmountBox p, .totalAmountBox h4 {
-    width: 100%;
-  }
-
-  .selectChart select{
-    width: 12rem;
-  }
-} 
 
 @media (max-width: 700px){
 
-
-  .periodSelectorContainer {
+  .totalAmountContainer{
     width: 100%;
+    height: 15rem;
+    font-size: 1.6rem;
+    margin: 0.5rem 0;
   }
+}
 
+.porcentaje {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  margin: 0.3rem;
+  width: 8rem;
+  height: 2.5rem;
+  border: 1px solid black;
+  border-radius: 10px;
+  color: var(--color-1);
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  height: 100%;
+  padding: 1rem;
+}
+
+.totalTitle {
+  margin: 0.3rem;
+}
+
+.amount {
+  margin: 0.3rem;
+}
+
+.info {
+  line-height: 2rem;
+  text-align: center;
+}
+
+.positiveGreen {
+  color: var(--color-1);
+}
+
+.negativeRed {
+  color: var(--color-11);
 }

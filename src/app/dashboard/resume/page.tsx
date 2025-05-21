@@ -9,6 +9,8 @@ import PieGraphSkeleton from '@/components/skeletons/PieGraphSkeleton';
 import BarGraphSkeleton from '@/components/skeletons/BarGraphSkeleton';
 import TitleSkeleton from '@/components/skeletons/TitleSkeleton';
 import PeriodSelectorSkeleton from '@/components/skeletons/PeriodSelectorSkeleton';
+import TotalAmountSkeleton from '@/components/skeletons/TotalAmountSkeleton';
+import TotalAmount from '@/components/TotalAmount';
 
 const BarGraph = lazy(() => import('@/components/barGraph'));
 const PieGraph = lazy(() => import('@/components/pieGraph'));
@@ -39,6 +41,7 @@ export default function Resume(){
       <div className={style.graphsContainer}>
         {showGraph ? <PieGraph/> : <PieGraphSkeleton />}
         {showGraph ? <BarGraph/> : <BarGraphSkeleton />}
+        {showGraph ? <TotalAmount/> : <TotalAmountSkeleton />}
       </div>
     </main>
   )

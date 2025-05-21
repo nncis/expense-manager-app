@@ -53,3 +53,9 @@ export const numberFormatter = (amount: number) => {
 export const formatDate = (date: Date) => {
   return date.toISOString().split('T')[0];
 };
+
+export const calculatePercentageDifference = (lastWeek: number, currentWeek: number) => {
+  const difference = currentWeek - lastWeek;
+  const percentage = (difference / lastWeek) * 100;
+  return Number(percentage.toFixed(2)); // Devuelve un string con 2 decimales
+}

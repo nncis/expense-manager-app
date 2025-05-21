@@ -208,54 +208,54 @@ export async function getMonthExpenses(): Promise<ExpenseByDate[]> {
 };
 
 
-export async function getAnnualExpenses(year: string): Promise<ExpenseTotalAmountPerMonth[]> {
+// export async function getAnnualExpenses(year: string): Promise<ExpenseTotalAmountPerMonth[]> {
  
-  const session = await getServerSession(authOptions);
-  const user = session?.user;
+//   const session = await getServerSession(authOptions);
+//   const user = session?.user;
 
-  if (!user) {
-    console.error('Authentication Error: User is not authenticated');
-    throw new Error('User is not authenticated');
-  }
+//   if (!user) {
+//     console.error('Authentication Error: User is not authenticated');
+//     throw new Error('User is not authenticated');
+//   }
 
-  try {
-    const data = await sql<ExpenseTotalAmountPerMonth>`
-      SELECT 
-        TO_CHAR(expenses.date, 'Mon') AS month, 
-        SUM(expenses.amount) AS total
-      FROM "User"
-      INNER JOIN expenses ON "User".id = expenses.user_id
-      WHERE 
-        "User".email = ${user.email} 
-        AND EXTRACT(YEAR FROM expenses.date) = ${year}
-      GROUP BY month, EXTRACT(MONTH FROM expenses.date)
-      ORDER BY EXTRACT(MONTH FROM expenses.date);
-    `
+//   try {
+//     const data = await sql<ExpenseTotalAmountPerMonth>`
+//       SELECT 
+//         TO_CHAR(expenses.date, 'Mon') AS month, 
+//         SUM(expenses.amount) AS total
+//       FROM "User"
+//       INNER JOIN expenses ON "User".id = expenses.user_id
+//       WHERE 
+//         "User".email = ${user.email} 
+//         AND EXTRACT(YEAR FROM expenses.date) = ${year}
+//       GROUP BY month, EXTRACT(MONTH FROM expenses.date)
+//       ORDER BY EXTRACT(MONTH FROM expenses.date);
+//     `
 
-    if (!data.rows.length) {
-      console.warn('No expenses found for the current week');
-      return [];
-    }
+//     if (!data.rows.length) {
+//       console.warn('No expenses found for the current week');
+//       return [];
+//     }
 
-    const convertCentsToDollars = (amountInCents: number) => amountInCents / 100;
+//     const convertCentsToDollars = (amountInCents: number) => amountInCents / 100;
     
-    try {
-      const annualExpenses = data.rows.map((expense) => ({
-        ...expense,
-        total: convertCentsToDollars(expense.total),
-      }));
+//     try {
+//       const annualExpenses = data.rows.map((expense) => ({
+//         ...expense,
+//         total: convertCentsToDollars(expense.total),
+//       }));
   
-      return annualExpenses;
-    } catch (mappingError) {
-      console.error('Error while mapping data:', mappingError);
-      throw new Error('Failed to process data');
-    };
+//       return annualExpenses;
+//     } catch (mappingError) {
+//       console.error('Error while mapping data:', mappingError);
+//       throw new Error('Failed to process data');
+//     };
 
-  } catch(dbError){
-    console.error('Database Error:', dbError);
-    throw new Error('Failed to fetch expenses years');
-  }
-};
+//   } catch(dbError){
+//     console.error('Database Error:', dbError);
+//     throw new Error('Failed to fetch expenses years');
+//   }
+// };
 
 
 export async function getFirstAndLastExpensesDates() {
@@ -474,11 +474,112 @@ export async function getExpenseTotalAmountWeekly(date: string | undefined) {
       throw new Error('Failed to process data');
     };
 
-    
-
   }catch(error){
     console.error('Error fetching total amount weekly', error);
     throw new Error('Failed to process data');
   }
 };
 
+export async function getTotalAmountWeek(date: string | undefined) {
+  const session = await getServerSession(authOptions);
+  const user = session?.user;
+
+  if (!user) {
+    console.error('Authentication Error: User is not authenticated');
+    throw new Error('User is not authenticated');
+  };
+
+  try {
+    const data = await sql`
+      SELECT 
+        SUM(CASE 
+              WHEN date BETWEEN (${date}::date - INTERVAL '7 days') AND (${date}::date - INTERVAL '1 day')
+              THEN amount
+              ELSE 0
+            END) AS "lastWeek",
+        SUM(CASE 
+              WHEN date BETWEEN ${date}::date AND (${date}::date + INTERVAL '6 days')
+              THEN amount
+              ELSE 0
+            END) AS "currentWeek"
+      FROM "User"
+      INNER JOIN expenses ON "User".id = expenses.user_id
+      WHERE "User".email = ${user.email};
+    `
+
+      if (!data.rows.length) {
+      console.warn('No total amount found for the current week');
+      return [];
+    }
+    const convertCentsToDollars = (amountInCents: number) => amountInCents / 100;
+
+    try {
+      const weeklyExpenses = {
+        lastAmount: convertCentsToDollars(data.rows[0].lastWeek),
+        currentAmount: convertCentsToDollars(data.rows[0].currentWeek)
+      }
+      return weeklyExpenses;
+    } catch (mappingError) {
+      console.error('Error while mapping data:', mappingError);
+      throw new Error('Failed to process data');
+    };
+
+  } catch(error){
+    console.error('Error fetching total amount weekly', error);
+    throw new Error('Failed to process data');
+  }
+
+}
+
+export async function getTotalAmountPreviousCurrentMonth(date: string | undefined) {
+  const session = await getServerSession(authOptions);
+  const user = session?.user;
+
+  if (!user) {
+    console.error('Authentication Error: User is not authenticated');
+    throw new Error('User is not authenticated');
+  };
+  
+  try {
+    const data = await sql`
+      SELECT 
+        SUM(CASE 
+              WHEN date BETWEEN (DATE_TRUNC('month', (${date} || '-01')::date) - INTERVAL '1 month') 
+                          AND (DATE_TRUNC('month', (${date} || '-01')::date) - INTERVAL '1 day')
+              THEN amount
+              ELSE 0
+            END) AS "lastMonth",
+        SUM(CASE 
+              WHEN date BETWEEN DATE_TRUNC('month', (${date} || '-01')::date)
+                          AND (DATE_TRUNC('month', (${date} || '-01')::date) + INTERVAL '1 month - 1 day')
+              THEN amount
+              ELSE 0
+            END) AS "currentMonth"
+      FROM "User"
+      INNER JOIN expenses ON "User".id = expenses.user_id
+      WHERE "User".email = ${user.email};
+    `
+
+      if (!data.rows.length) {
+      console.warn('No total amount found for the current month');
+      return [];
+    }
+    const convertCentsToDollars = (amountInCents: number) => amountInCents / 100;
+
+    try {
+      const weeklyExpenses = {
+        lastAmount: convertCentsToDollars(data.rows[0].lastMonth),
+        currentAmount: convertCentsToDollars(data.rows[0].currentMonth)
+      }
+      return weeklyExpenses;
+    } catch (mappingError) {
+      console.error('Error while mapping data:', mappingError);
+      throw new Error('Failed to process data');
+    };
+
+  } catch(error){
+    console.error('Error fetching total amount month', error);
+    throw new Error('Failed to process data');
+  }
+
+}
