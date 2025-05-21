@@ -156,6 +156,7 @@
   align-items: center;
  
   /* margin-top: 1rem; */
+  overflow: auto;
   height: 80%;
 }
 
@@ -164,7 +165,6 @@
     flex-wrap: nowrap;
     flex-direction: column-reverse;
     justify-content: unset;
-    overflow: auto;
   }
 }
 
