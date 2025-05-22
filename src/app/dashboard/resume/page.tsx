@@ -4,7 +4,7 @@ import style from '@/styles/resume.module.css';
 import PeriodSelectorButtons from '@/ui/resume/PeriodSelectButtons';
 import NavigationDates from '@/ui/resume/NavigationDates';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { useEffect, useState, lazy } from 'react';
+import { useEffect, useState, lazy} from 'react';
 import PieGraphSkeleton from '@/components/skeletons/PieGraphSkeleton';
 import BarGraphSkeleton from '@/components/skeletons/BarGraphSkeleton';
 import TitleSkeleton from '@/components/skeletons/TitleSkeleton';
@@ -39,9 +39,9 @@ export default function Resume(){
         <NavigationDates onRendered={() => setShowGraph(true)} period={period}/>
       </div>
       <div className={style.graphsContainer}>
+        {showGraph ? <TotalAmount/> : <TotalAmountSkeleton />}
         {showGraph ? <PieGraph/> : <PieGraphSkeleton />}
         {showGraph ? <BarGraph/> : <BarGraphSkeleton />}
-        {showGraph ? <TotalAmount/> : <TotalAmountSkeleton />}
       </div>
     </main>
   )

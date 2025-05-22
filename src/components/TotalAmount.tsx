@@ -48,9 +48,9 @@ export default function TotalAmount() {
     }
       }, [week, month])
 
-      if(!dataLoaded){
-        return <TotalAmountSkeleton />
-      }
+      // if(!dataLoaded){
+      //   return <TotalAmountSkeleton />
+      // }
 
       const buttonClass = clsx({[style.positiveGreen] : percentage < 0,[style.negativeRed] : percentage > 0})
     

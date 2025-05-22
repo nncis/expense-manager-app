@@ -17,7 +17,7 @@ export default function Loading(){
         <NavDateBtnSkeleton />
       </div>
       <div className={style.graphsContainer}>
-        {/* <TotalAmountSkeleton /> */}
+        <TotalAmountSkeleton />
         <PieGraphSkeleton />
         <BarGraphSkeleton />
       </div>

@@ -152,8 +152,9 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  align-content: center;
+  
   align-items: center;
+  justify-content: center;
   /* margin-top: 1rem; */
   overflow: auto;
   height: 80%;
@@ -162,8 +163,7 @@
 @media (max-width: 1200px){
  .graphsContainer {
     flex-wrap: nowrap;
-    flex-direction: column-reverse;
-    
+    justify-content: unset;
   }
 }
 
