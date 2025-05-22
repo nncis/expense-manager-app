@@ -39,7 +39,7 @@
 
 @media (max-height: 670px){
   .resumeMainContainer {
-    height: 90vh;
+    height: 85vh;
   }
 }
 
@@ -169,7 +169,7 @@
 
 @media (max-width: 700px){
   .graphsContainer {
-    height: 80%;
+
     width: 100%;
     margin: 0;
   }
