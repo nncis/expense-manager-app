@@ -47,6 +47,19 @@ export default function PeriodNavigationButton(props: {period: string | null, fi
     return date.toISOString().split('T')[0];
   };
 
+function formatDateButton(date: Date): string {
+  const options: Intl.DateTimeFormatOptions = { month: 'short' };
+  const month = date.toLocaleString('en-US', options);
+  const day = date.getDate();
+  return `${month} - ${day}`;
+}
+
+const formatDateButtonMonth = (date: Date) => {
+  const options: Intl.DateTimeFormatOptions = { month: 'long' };
+  const month = date.toLocaleString('en-US', options);
+  return `${month}`
+}
+
   const getFirstDayOfMonth = (date: Date) => {
     return new Date(date.getFullYear(), date.getMonth(), 1);
   };
@@ -133,7 +146,7 @@ export default function PeriodNavigationButton(props: {period: string | null, fi
           </button> 
           {
 
-            <p>{formatDate(currentSunday)}</p>
+            <p>Sunday - {formatDateButton(currentSunday)}</p>
 
           }
           <button onClick={nextWeek} disabled={getSunday(currentSunday) >= getSunday(lastExpense) || !lastExpense}>
@@ -147,7 +160,7 @@ export default function PeriodNavigationButton(props: {period: string | null, fi
           </button>
           {
             lastExpense ? 
-            <p>{formatMonth(firstOfMonth)}</p> :
+            <p>{formatDateButtonMonth(firstOfMonth)}</p> :
             <p>Not Data Yet</p>
           }
           <button onClick={nextMonth} disabled={firstOfMonth >= getFirstDayOfMonth(lastExpense) || !lastExpense}>

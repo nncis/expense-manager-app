@@ -21,7 +21,7 @@ export type State = {
 };
 
 export const categories: string[] = [
-  "Greengrocery", "Bakery", "Meat", "Transportation", "Hair salon", "Clothing Store", "Services", "Supermarket", "Vacations", "Forniture" ,"Electronic", "Others", "Grocery Store", "Pharmacy", "Hardware Store" 
+  "Greengrocery", "Fast Food", "Bakery", "Meat", "Transportation", "Hair salon", "Clothing Store", "Services", "Supermarket", "Vacations", "Forniture" ,"Electronic", "Others", "Grocery Store", "Pharmacy", "Hardware Store" 
 ].sort();
 
 export type Expense = {
