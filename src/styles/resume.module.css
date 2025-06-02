@@ -24,7 +24,7 @@
   .resumeMainContainer {
     padding: 0;
     align-items: center;
-    /* height: 93%; */
+    height: 93%;
     /* padding: 1rem 0; */
   }
 
@@ -39,7 +39,7 @@
 
 @media (max-height: 670px){
   .resumeMainContainer {
-    height: 90%;
+    height: 88%;
   }
 }
 
