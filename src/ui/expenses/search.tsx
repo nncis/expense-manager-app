@@ -26,7 +26,7 @@ export default function Search() {
   }
   
   return (
-    <div className={style.search}>
+    <div className={style.filterButtonsContainer}>
       {/* <label htmlFor="search">
       </label>
       <input 
@@ -38,7 +38,7 @@ export default function Search() {
         /> */}
 
       {/* <MagnifyingGlassIcon className={style.glassIcon}></MagnifyingGlassIcon> */}
-      <div className={style.filterExpense}>
+      <div className={style.filterExpenseContainer}>
           <label className={style.filterTitle}>
             Filter by category
           </label>

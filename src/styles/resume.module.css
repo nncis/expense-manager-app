@@ -24,8 +24,8 @@
   .resumeMainContainer {
     padding: 0;
     align-items: center;
-    height: 93%;
-    padding: 1rem 0;
+    /* height: 93%; */
+    /* padding: 1rem 0; */
   }
 
   .titleContainer {

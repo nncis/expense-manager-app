@@ -19,7 +19,7 @@ export default function PeriodNavigationButton(props: {period: string | null, fi
 
   useEffect(() => {
     //when press monthly or weekly button, it needs to make a first request.
-    //so the url will update with the last sunday before the last expense or the first of day of the last expense month
+    //so the url will update with the last sunday before the last expense or the first day of the last month's expense 
     //for example: if the last expense date is "04-17" the url will be "&week=2025-04-13"(Sunday) or "&month=2025-04"
 
     const sunday = getSunday(lastExpense);
