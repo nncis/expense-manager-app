@@ -2,38 +2,53 @@
 .expensesMainPage {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   width: 100%;
   height: 100%;
-  position: relative;
+  padding: 5rem;
+}
+
+.titleContainer{
+  display: flex;
+  align-items: center;
+  height: 10%;
+  width: 20rem;
+  padding: 1rem;
 }
 
 .title {
-  position: absolute;
-  top: 30px;
-  left: 100px; 
   font-style: italic;
   font-weight: 500;
 }
 
-.title h1 {
-  font-style: italic;
-  font-weight: 500;
+@media (max-width: 700px){
+  .expensesMainPage {
+    padding: 0;
+    align-items: center;
+    /* height: 93%; */
+    /* padding: 1rem 0; */
+  }
+  .titleContainer {
+    height: 5%;
+    width: 50%;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+  }
+
 }
 
 /* Mobile Form Table */
 
 .mobileFormContainer {
+  display: none;
   width: 100%;
   border-radius: 5px;
   overflow: auto;
-  padding: 1rem 0;
+  padding: 0;
 }
 
 .expenseRowMobileContainer {
   height: 15.8%;
-  display: none;
   font-size: 1.5rem;
   margin: 0.5rem 0;
   border-radius: 8px;
@@ -89,7 +104,6 @@
   }
 }
 
-/* General settings mobile */
 
 @media (min-height: 900px) and (max-width: 700px) {
   .expenseRowMobileContainer {
@@ -99,15 +113,10 @@
 }
 
 @media (max-width: 700px) {
-  .title {
 
-    position: relative;
-    top: auto;
-    left: auto;
-  }
-
-  .expensesMainPage {
-    justify-content: flex-start;
+  .mobileFormContainer {
+    display: flex;
+    flex-direction: column;
   }
 
   .expenseTable{
@@ -127,8 +136,9 @@
 /* Desktop Form Table */
 
 .expenseTable {
-  max-width: 80%;
-  height: 25rem;
+  width: 100%;
+  margin-top: 3rem;
+  height: 55rem;
   text-align: left;
   border-radius: 10px;
   padding: 1rem;
@@ -218,28 +228,43 @@
 
 /* Filters */
 
-.search {
-  position: relative;
+.filterButtonsContainer {
   display: flex;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
-  width: 80%;
-  height: 8rem;
+  justify-content: space-between;
+  /* justify-content: center; */
+  max-width: 60rem;
+  height: 7rem;
+  padding: 1rem 1rem 1rem 0;
 }
 
-.filterExpense {
+.filterExpenseContainer {
   display: flex;
   flex-direction: column;
+  height: 100%;
+  width: 45%;
+  margin: 0;
 }
 
-.filterExpense select {
+.filterExpenseContainer select {
   border-radius: 5px;
   background-color: var(--background-button);
+  height: 3rem;
 }
 
 .filterTitle {
   font-size: 1.5rem;
-  margin: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+
+@media (max-width: 700px) {
+  .filterButtonsContainer{
+    padding: 0;
+    width: 100%;
+    margin: 1rem 0;
+  }
 }
 
 
@@ -248,7 +273,11 @@
 .pagination {
   display: flex;
   flex-direction: row;
-  margin: 2rem 0;
+  padding: 2rem 0;
+  justify-content: center;
+  align-items: center;
+  height: 10rem;
+  width: 100%;
 }
 
 .pagesNumber {
@@ -380,18 +409,16 @@
 
 @media (max-width: 700px){
    .mobileFormContainer{
-    height: 79%;
+    height: 80%;
   }
 
   .pagination {
     height: 7%;
+    margin: 1rem 0;
+    padding: 0;
   }
 
-  .title {
-    height: 5%;
-  }
-
-  .search {
+  .filterButtonsContainer {
     height: 8%;
   }
 }

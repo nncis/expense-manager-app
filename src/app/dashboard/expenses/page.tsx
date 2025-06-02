@@ -19,8 +19,8 @@ export default async function Expenses(props:{
 
   return (
       <main className={style.expensesMainPage}>
-        <div className={style.title}>
-          <h1>Expenses</h1>
+        <div className={style.titleContainer}>
+          <h1 className={style.title}>Expenses</h1>
         </div>
         <Search />
         <Table query={query} currentPage={currentPage}/>

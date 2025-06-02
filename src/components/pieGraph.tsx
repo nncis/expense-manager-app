@@ -37,7 +37,7 @@ export default function PieGraph() {
       fetch(`/api/resume/piegraph-weekly?week=${week}`)
         .then(res => res.json())
         .then(data => {
-          setDataExpense(data)
+          setDataExpense(data);
         })
         .catch(error => {
           console.error('error fetch pie graph data', error)
@@ -56,9 +56,9 @@ export default function PieGraph() {
       }, [week, month])
       
   useEffect(() => {
-    if (!chartRef.current) return;
+      if (!chartRef.current) return;
 
-    //SVG config
+      //SVG config
     const svg = d3.select(chartRef.current);
     const { width, height } = dimensions;
     const margin = { top: 10, right: 10, bottom: 10, left: 10 };
@@ -192,13 +192,15 @@ export default function PieGraph() {
     // return () => {
     //   tooltip.remove();
     // };
+
   }, [dataExpense])
+
   return (
     <> 
       <div className={style.SVGpieGraphContainer}>
-        <svg className={style.SVGpieChart} ref={chartRef}></svg>
-      </div> 
+          <svg className={style.SVGpieChart} ref={chartRef}>
+          </svg>
+      </div>
     </>
- 
   )
 }

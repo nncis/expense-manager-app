@@ -24,8 +24,8 @@
   .resumeMainContainer {
     padding: 0;
     align-items: center;
-    height: 93%;
-    padding: 1rem 0;
+    /* height: 93%; */
+    /* padding: 1rem 0; */
   }
 
   .titleContainer {
@@ -263,6 +263,7 @@
     height: 15rem;
     font-size: 1.6rem;
     margin: 0.5rem 0;
+    padding: 0 3rem;
   }
 }
 
