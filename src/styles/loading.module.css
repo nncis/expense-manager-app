@@ -19,7 +19,8 @@
 
 @media (max-height: 670px){
   .resumeMainContainer {
-    height: 90%
+    height: 90%;
+    min-height: 80%;
   }
 }
 
