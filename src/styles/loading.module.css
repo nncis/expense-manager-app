@@ -17,16 +17,9 @@
   height: 100%;
 }
 
-@media (max-height: 670px){
-  .resumeMainContainer {
-    height: 90%;
-    min-height: 80%;
-  }
-}
-
-
 @media (max-width: 700px) {
   .resumeMainContainer {
+    min-height: 80%;
     padding: 0;
     align-items: center;
   }
