@@ -26,7 +26,6 @@ export default function EditForm(
     setSelectedDate(event.target.value);
   };
 
-
   return (
     <form className={style.recordForm} action={formAction}>
       {/* choose category */}

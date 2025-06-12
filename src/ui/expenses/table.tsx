@@ -35,7 +35,7 @@ export default async function Table (
               <td>
                 <div className={style.expenseButtons}>
                   <UpdateExpense id={expense.id}/>
-                  <DeleteExpense id={expense.id}/>
+                  <DeleteExpense id={expense.id}/> 
                 </div>
               </td>
             </tr>

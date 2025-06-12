@@ -207,6 +207,70 @@
   background-color: var(--active-button-4);
 }
 
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* z-index alto */
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 300px;
+  text-align: center;
+}
+
+.modalButtons {
+  width: 100%;
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-around;
+}
+
+.confirmBtn {
+  width: 10rem;
+  height: 3.5rem;
+  background:  var(--color-14);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 2px;
+  cursor: pointer;
+  font-family: "Josefin Sans";
+  font-size: 1.5rem;
+}
+
+.cancelBtn {
+  width: 10rem;
+  height: 3.5rem;
+  background: grey;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 2px;
+  cursor: pointer;
+  font-family: "Josefin Sans";
+  font-size: 1.5rem;
+}
+
+.exclamationIcon {
+  width: 7rem;
+  color: var(--color-14);
+}
+
 @media (max-width: 700px) {
   .btn {
     width: 5rem;
