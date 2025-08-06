@@ -32,7 +32,7 @@ export default function Resume(){
   return(
     <main className={style.resumeMainContainer}>
       <div className={style.titleContainer}>
-       {showGraph ? <h1 className={style.title}>Resume</h1> : <TitleSkeleton/>} 
+       {showGraph ? <h1 className={style.title}>Home</h1> : <TitleSkeleton/>} 
       </div>
       <div className={style.periodSelectorContainer}>
         {showGraph ? <PeriodSelectorButtons /> : <PeriodSelectorSkeleton />}

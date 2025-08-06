@@ -20,7 +20,8 @@ export default function PieGraph() {
   useEffect(() => {
 
     const handleResize = () => {
-      // console.log(chartRef)
+      console.log(chartRef.current?.parentElement?.clientWidth)
+      
       const containerWidth = chartRef.current?.parentElement?.clientWidth || 326;
       setDimensions({ width: containerWidth, height: containerWidth * 0.75 });
     };
@@ -67,6 +68,7 @@ export default function PieGraph() {
     const radius = Math.min(width, height) / 5;
     const color = d3.scaleOrdinal(d3.schemePastel1);
     const dataLength = dataExpense.length;
+    const title = week ? "Total Weekly Amount by Category" : "Total Monthly Amount by Category"
 
     if(width < 450){
       setIsMobile(true);
@@ -75,7 +77,7 @@ export default function PieGraph() {
     }
 
     const fontSizeDesk = dataLength > 6 ? '1.3rem' : '1.5rem';
-    const fontSizeMobile = dataLength > 6 ? '1.5rem' : '1.5rem';
+    const fontSizeMobile = dataLength > 6 ? '1.3rem' : '1.5rem';
 
     const circleDesk = dataLength > 6 ? 6 : 7;
     const circleMobile = dataLength > 6 ? 5 : 6;
@@ -91,10 +93,18 @@ export default function PieGraph() {
     const pie = d3.pie<ExpenseAmountByDate>()
       .value(d => d.amount);
 
+    //Title
+    svg.append('text')
+    .attr("x", 15)         // posición horizontal
+    .attr("y", 33)          // posición vertical
+    .text(title)        // contenido del texto
+    .attr("font-size", "1.8rem")
+    .attr("fill", "black"); // color del texto
+    
     //Create a g element for the Pie Graph
     const g = svg
       .append('g')
-      .attr('transform', `translate(${(innerWidth / 5)} , ${(height < 266 ? innerHeight / 2 : innerHeight / 2.3 )})`)
+      .attr('transform', `translate(${(innerWidth / 5)} , ${(height < 266 ? innerHeight / 1.8 : innerHeight / 2.3 )})`)
       .attr('viewBox', `0 0 ${width} ${height}`) // Relativo a un sistema de coordenadas base
       .attr('preserveAspectRatio', 'xMidYMid meet') // Mantiene la relación de aspecto
       .classed('responsive', true);
@@ -117,8 +127,8 @@ export default function PieGraph() {
       .enter()
       .append('path')
       .attr('fill', d => color(d.data.category))
-      .attr('stroke', 'black')
-      .attr('stroke-width', 2)
+      // .attr('stroke', 'black')
+      // .attr('stroke-width', 1)
       .each(function (this: SVGPathElement, d) {
         (this as any)._current = { ...d, startAngle: 0, endAngle: 0 };
       });
@@ -153,9 +163,13 @@ export default function PieGraph() {
     const legend = svg
       .append('g')
       .attr('transform', `translate(${(innerWidth / 2.3)}, 
-      ${(height < 266 ? 
-        innerHeight / 2.3 - dataLength * 7
-        : innerHeight / 2.5 - dataLength * 8)})`);
+      ${(
+        isMobile 
+        ? 
+        height / 2 - dataLength * 8
+        : 
+        innerHeight / 2.5 - dataLength * 7
+      )})`);
 
     const legendItems = legend
       .selectAll('.legend-item')
@@ -169,8 +183,8 @@ export default function PieGraph() {
     legendItems
       .append('circle')
       .attr('r', `${isMobile ? circleMobile : circleDesk}`)
-      .attr('stroke', 'black')
-      .attr('stroke-width', 1.5)
+      // .attr('stroke', 'black')
+      // .attr('stroke-width', 1.5)
       .attr('fill', d => color(d.category.toString()));
 
     legendItems

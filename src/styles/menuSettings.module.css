@@ -1,0 +1,63 @@
+.menuSettingsContainer {
+  position: absolute;
+  left: 170;
+  top: 10;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 8rem;
+  /* height: 4rem; */
+  background-color: var(--color-2);
+  border-radius: 20px;
+  flex-wrap: wrap;
+  padding-right: 1rem;
+   border: 1px solid black;
+}
+
+.menuOptionsContainer {
+  position: absolute;
+  left: 170;
+  top: 55;
+  background-color: var(--color-2);
+  width: 12rem;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1rem 1rem;
+  border: 1px solid black;
+}
+
+.menuOptionsContainer:active {
+  
+}
+
+.profileImg {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 100%;
+}
+
+.expandBtn{
+  width: 2rem;
+  height: 2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  
+}
+
+.logoutBtn {
+  width: 3rem;
+  height: 3rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+
+
+.logoutBtn:hover , .expandBtn:hover {
+  color: var(--active-button-2);
+}

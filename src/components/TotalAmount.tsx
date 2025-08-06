@@ -66,7 +66,7 @@ export default function TotalAmount() {
           }
         )}>
           {
-            percentage < 0 ? <ChevronUpIcon width={12} /> : <ChevronDownIcon width={12} />
+            percentage > 0 ? <ChevronUpIcon width={14} /> : <ChevronDownIcon width={14} />
           }
           <p>
             {Math.abs(percentage)}%

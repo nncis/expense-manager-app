@@ -3,9 +3,14 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import clsx from 'clsx';
 import style from '@/styles/nav.module.css'
-import { BookOpenIcon, ChartBarIcon, PlusIcon } from '@heroicons/react/24/outline';
+import { BookOpenIcon, ChartBarIcon, PlusIcon, HomeIcon  } from '@heroicons/react/24/outline';
 
 const links = [
+  { 
+    name: 'Resume', 
+    href: '/dashboard/resume',
+    icon: HomeIcon
+  },
   {
     name: 'Record',
     href: '/dashboard/record',
@@ -15,11 +20,6 @@ const links = [
     name: 'Expenses', 
     href: '/dashboard/expenses',
     icon: BookOpenIcon
-  },
-  { 
-    name: 'Resume', 
-    href: '/dashboard/resume',
-    icon: ChartBarIcon
   },
 ];
 

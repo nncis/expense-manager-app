@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { inter, josefin_sans } from '@/ui/fonts/fonts';
 import "./globals.css";
+import { Providers } from './providers'
 
 export const metadata: Metadata = {
   title: "Expense Manager",
@@ -15,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${josefin_sans.className} antialiased`}>
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

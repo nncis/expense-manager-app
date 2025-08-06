@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
   justify-self: center;
   height: 100%;
   width: 15rem;
@@ -11,7 +11,7 @@
   top: 0;
   left: 0;
   background-color: var(--background-nav);
-  border-right: 3px solid var(--stroke-2);
+  /* border-right: 1px solid var(--stroke-2); */
   /* overflow-x: hidden; */
 }
 
@@ -46,9 +46,9 @@
 } */
 
 .linkActive {
-  color: var(--font-color-3);
-  background-color: var(--active-button-2);
-  border: 2px solid var(--stroke-2);
+  color: white;
+  background-color: var(--active-button-6);
+  /* border: 2px solid var(--stroke-2); */
   border-radius: 10px;
 }
 
@@ -63,28 +63,33 @@
 }
 
 .signOut {
+  position: absolute;
+  bottom: 80;
   display: flex;
   flex-direction: row;
   align-items: center;
-  background-color: var(--background-component);
-  width: 22rem;
-  height: 5rem;
+  background-color: var( --background-nav);
+  /* width: 22rem; */
+  /* height: 5rem; */
   border-radius: 10px;
   border: none;
-  color: var(--font-color-tertiary);
+  color: var(--font-color);
   cursor: pointer;
-  padding-left: 1.5rem;
 }
 
 .signOut:hover {
-  background-color: var(--active-tertiary);
-  color: var(--active-secondary);
+  /* background-color: var(--active-tertiary); */
+  /* color: var(--active-secondary); */
 }
 
-.signOut p {
+/* .signOut p {
   font-size: 1.5rem;
   font-weight: 500;
   margin-left: 1rem;
+} */
+
+.logOutIcon {
+  width: 4.5rem;
 }
 
 .icon{
@@ -100,7 +105,7 @@
     padding: 1rem;
     margin-top: 1rem;
     box-sizing: border-box;
-    border: 2px solid var(--stroke-2);
+    /* border: 2px solid var(--stroke-2); */
     border-radius: 10px;
   }
 
@@ -116,6 +121,10 @@
     margin: 0 1rem;
     justify-content: center;
     height: 5rem;
+  }
+
+  .signOut {
+    display: none;
   }
 
   /* .signOut {

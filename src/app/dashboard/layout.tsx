@@ -1,7 +1,8 @@
 'use client'
+
 import style from '@/styles/dashboard.module.css';
 import Navbar from "@/ui/Nav/Navbar";
-import { useViewportHeight } from "@/lib/hooks"
+import { useViewportHeight } from "@/lib/hooks";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   useViewportHeight()

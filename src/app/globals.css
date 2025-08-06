@@ -7,6 +7,7 @@
   --stroke-2: #000000;
 
   --font-color: #FFFFFF;
+  --font-color-1: #D9D9D9;
   --font-color-2: #5B5B5B;
   --font-color-3: #000000;
 
@@ -20,6 +21,7 @@
   --active-button-2: #F6BA3D;
   --active-button-4: #cc9b32;
   --active-button-5: #3d99bb;
+  --active-button-6: #9cdcf3;
 
   --row-background: #FFFFFF;
   --row-background-2: #FAFAFA;
@@ -29,7 +31,7 @@
   --color-1: #8AB799;
   --color-2: #4EC0EA;
   --color-3: #F6BA3D;
-  --color-2: #F98C87;
+  --color-4: #F98C87;
   --color-5: #F9CECD;
   --color-6: #CEB5DC;
   --color-7: #FFF5EB;
